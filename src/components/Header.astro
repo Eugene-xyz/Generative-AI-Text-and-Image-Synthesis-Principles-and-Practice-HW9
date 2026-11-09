@@ -1,0 +1,33 @@
+---
+import { withBase } from '../lib/wiki';
+const links = [ ['樂團', 'band/'], ['四位成員', 'members/'], ['歌曲推薦', 'recommendations/'], ['音樂作品', 'discography/'], ['時間線', 'timeline/'] ];
+const isCurrent = (route: string) => route === 'discography/' ? /\/(?:discography|releases|collaborations|other-songs)\//.test(Astro.url.pathname) : Astro.url.pathname.includes(`/${route}`);
+---
+<a class="skip-link" href="#main">跳到主要內容</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href={withBase()} class="brand" aria-label="QWER Stage Notes 首頁">
+      <span class="brand-mark">QWER</span><span class="brand-text">STAGE<br />NOTES</span>
+    </a>
+    <button class="menu-toggle" aria-controls="site-nav" aria-expanded="false">選單</button>
+    <nav class="site-nav" id="site-nav" aria-label="主要導覽">
+      {links.map(([label, route]) => <a href={withBase(route)} aria-current={isCurrent(route) ? 'location' : undefined}>{label}</a>)}
+      <a href={withBase('sources/')}>關於與來源</a>
+    </nav>
+  </div>
+</header>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#site-nav');
+  const close = () => { button?.setAttribute('aria-expanded', 'false'); nav?.setAttribute('data-open', 'false'); };
+  button?.addEventListener('click', () => {
+    const open = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(open));
+    nav?.setAttribute('data-open', String(open));
+  });
+  nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', close));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') { close(); button.focus(); }
+  });
+  matchMedia('(min-width: 681px)').addEventListener('change', close);
+</script>

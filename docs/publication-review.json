@@ -1,0 +1,591 @@
+{
+  "version": 1,
+  "scope": "2026-11-10 使用者要求完整網站與可上傳交付；保留 D013 等已確認限制。依既有查核紀錄與本輪呈現審閱，不宣稱重新查證所有外站。",
+  "pages": {
+    "band-qwer": {
+      "file": "wiki/band/qwer.md",
+      "sha256": "8ddb26b17633a735191ff68740599139e0f8955740940224cb7310cac5ac3e43",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F001：組團與受邀的精確節點"
+      ]
+    },
+    "media-anima-power": {
+      "file": "wiki/collaborations/anima-power.md",
+      "sha256": "5dd81c0ca2bae048e96e1f37c91566ed78ce1f7f8301eb80573cd5ffa7941e7d",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F013：MV 精確首發日"
+      ]
+    },
+    "media-be-happy-carol": {
+      "file": "wiki/collaborations/be-happy-carol.md",
+      "sha256": "d40246ea506bed527a097b950cb7d27bd6dd80a9756b2dd8bcd4da8aa608c800",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F003：未核對獨立串流發行",
+        "F013：影音版本限制"
+      ]
+    },
+    "media-embracing-me": {
+      "file": "wiki/collaborations/embracing-me.md",
+      "sha256": "bbdae50d5eb369063c0f101e4f18545d03cd1bf87ccebab6ea2112bda3132f63",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F013：歷史免費下載現況"
+      ]
+    },
+    "media-halftime": {
+      "file": "wiki/collaborations/halftime.md",
+      "sha256": "00cf15c62c5808c9709a339739cff671f4e777e59b8c705edf490babfbb2a9c0",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F013：MV 日期與候選入口"
+      ]
+    },
+    "media-play-we-dew": {
+      "file": "wiki/collaborations/play-we-dew.md",
+      "sha256": "e52c3271f83257233be8e3c0638c8355927b17d4c2af930e3f2c6d4fef8651fb",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F003：未核對獨立串流發行"
+      ]
+    },
+    "media-rebound-woori": {
+      "file": "wiki/collaborations/rebound-woori.md",
+      "sha256": "74ccfaae0a02190b646a9528b4916f49c07ee81e69b0b513a9bc63b8f9613de2",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F012：錄音等同性",
+        "F013：影片精確時間戳"
+      ]
+    },
+    "media-shine-all-night": {
+      "file": "wiki/collaborations/shine-all-night.md",
+      "sha256": "2d9d72facc727988af72b614983697576ac20fa9482044cf67ef85feb1edda76",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F013：各影片上線節點",
+        "F016：日本公開版語言"
+      ]
+    },
+    "member-chodan": {
+      "file": "wiki/members/chodan.md",
+      "sha256": "5c555f2a75f8b22d894fa2687a440a2d05cd4c943bc9b76550343bbf2202f9ba",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F001：入團精確節點",
+        "F002：首次開播與完整職涯年月"
+      ]
+    },
+    "member-hina": {
+      "file": "wiki/members/hina.md",
+      "sha256": "4e4c1038f5427141c14d98cac9f7a24722be8c0d8769b43ab180d660144e4706",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F001：受邀與加入時間",
+        "F008：平台與求學年月"
+      ]
+    },
+    "member-magenta": {
+      "file": "wiki/members/magenta.md",
+      "sha256": "1526dacaef02de41be80a95c8d5a7c8c7812b054512b94ce713a87b51c41c727",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F005：訪談刊期辨識",
+        "F006：貝斯起學時間與來源表述差異",
+        "F007：平台起迄與拍攝日期"
+      ]
+    },
+    "member-siyeon": {
+      "file": "wiki/members/siyeon.md",
+      "sha256": "db5fe5dcad11ccdf0d9e4565dcb17482e17dc10401fb20a07972cebf5bca71ac",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F001：受邀與加入時間",
+        "F009：NMB48 完整年表"
+      ]
+    },
+    "media-youth-pledge": {
+      "file": "wiki/other-songs/youth-pledge.md",
+      "sha256": "2055f240819bf5974ed30a841d26425d9e7d5ee926cee7a4410e7ca875a09082",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F003：獨立發行與官方英文名仍待查"
+      ]
+    },
+    "recommendation-blue-whale": {
+      "file": "wiki/recommendations/blue-whale.md",
+      "sha256": "f856cda556ab63444898a3790d867b0d03c0c67c08d5c8e2d71d14b5243d0992",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-ceremony": {
+      "file": "wiki/recommendations/ceremony.md",
+      "sha256": "28becf6d1d385df53e894d95ccf0e3768ebb189d4d792f9f3bb16a40bd43225c",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-dear": {
+      "file": "wiki/recommendations/dear.md",
+      "sha256": "6dca4ff5371e3a9bb2810041034790a8010d8e02a707da7cd8decedb643035a4",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-discord": {
+      "file": "wiki/recommendations/discord.md",
+      "sha256": "b5dc263fda9f6ad4c89e0af4bad23f9d38e52e01b4da6fae3e5a1a73fe1d1599",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-dreamer": {
+      "file": "wiki/recommendations/dreamer.md",
+      "sha256": "2e9cdba15b1e331fd01ebb3e395c31d6ca174c181eb45267049776e93edd7a82",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-fake-idol": {
+      "file": "wiki/recommendations/fake-idol.md",
+      "sha256": "28612701d08d247929a11fb71d7b44b3deee40d5ca54f156a8f50ddcba2dbaee",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-harmony-of-stars": {
+      "file": "wiki/recommendations/harmony-of-stars.md",
+      "sha256": "26f5cdf49581236f643622555f506f4dc073c86b142b801db17abbb0290bd189",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-my-name-is-malguem": {
+      "file": "wiki/recommendations/my-name-is-malguem.md",
+      "sha256": "f898e883ecf4e115359b26c599b8f605ca364c31084b2100d81a176b8fe75448",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-show-down": {
+      "file": "wiki/recommendations/show-down.md",
+      "sha256": "6fc6be19cb74277a0cad2afd6dcccecfce57b275a135951fb24717f710107a79",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-tbh": {
+      "file": "wiki/recommendations/tbh.md",
+      "sha256": "955057f20dadbda069e8ba849735c6f23950a65bdb0aba89d2621d3913663c18",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-yours-sincerely": {
+      "file": "wiki/recommendations/yours-sincerely.md",
+      "sha256": "e63c0a86da33048e5450036ce9377cfe7e3d98f112020e8b4980aed7b4c927e7",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "recommendation-youth-pledge": {
+      "file": "wiki/recommendations/youth-pledge.md",
+      "sha256": "2ccdf61f06cccf06a32e8970971c3be3c9c0b8d2f70d0ee08fee7c76a087693f",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F003：獨立發行與官方英文名仍待查"
+      ]
+    },
+    "release-algorithms-blossom": {
+      "file": "wiki/releases/algorithms-blossom.md",
+      "sha256": "a2d6606acb64700a00d471ba2e18f28bcde9600a1ac789283a1b7cf00142f160",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F014：實體曲序",
+        "F016：INTRO／OUTRO 語言"
+      ]
+    },
+    "release-beyond-the-discord": {
+      "file": "wiki/releases/beyond-the-discord.md",
+      "sha256": "1d9c06fb7d5ea1b5faa747fea408bd73b0954a45eba13e50835c9d75901033a4",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F011：LP 曲序與逐曲版本",
+        "F012：LP 錄音等同性"
+      ]
+    },
+    "release-blue-whale": {
+      "file": "wiki/releases/blue-whale.md",
+      "sha256": "891517e2fd5aa3f6dbb26a950709e9d7ade7f5ba14f1882850ad0a62a444a6eb",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "release-ceremony": {
+      "file": "wiki/releases/ceremony.md",
+      "sha256": "9d3455b2e49a5f7f9ac7afbb96e6cc42b1bb570d26164319bac8ef70f259f97d",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F014：完整實體曲序"
+      ]
+    },
+    "release-discord-japanese": {
+      "file": "wiki/releases/discord-japanese.md",
+      "sha256": "4cc48f5be5058ef6ec806149a7e6bde27dc4287f6702402306ad741177bdf2e0",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "release-discord-tak-remix": {
+      "file": "wiki/releases/discord-tak-remix.md",
+      "sha256": "03136ce8174e29bfc740c8c042efe16052c602cce804b7e6a82dfe99b7a640ed",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "release-dreamer-picaresque": {
+      "file": "wiki/releases/dreamer-picaresque.md",
+      "sha256": "66c32599c1ebeeb903ccf3126f4cb720b6273ae8267d52925a761a9380d6a09f",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "release-fake-idol": {
+      "file": "wiki/releases/fake-idol.md",
+      "sha256": "2036aa3d39472bdee3781411bc297173706e5f294da99d0b6163f81c42119fec",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F012：再收錄錄音等同性"
+      ]
+    },
+    "release-harmony-from-discord": {
+      "file": "wiki/releases/harmony-from-discord.md",
+      "sha256": "81b9371387b5c8ecf1b5c7fb2d59eff6cd62bd30a18844ef28a4d209f56fbf6e",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F010：CD Only 音源與演唱內容"
+      ]
+    },
+    "release-in-a-million-noises": {
+      "file": "wiki/releases/in-a-million-noises.md",
+      "sha256": "441cb846c0685c9e4c1d11d4fa27bc53c65f44f350153b2209cfc5d68fa4d1df",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "release-manito": {
+      "file": "wiki/releases/manito.md",
+      "sha256": "4663a7845579f4480cb21b5253109a128b83f92b7e09c229966f74c4ecffd373",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F014：完整實體曲序"
+      ]
+    },
+    "release-show-down": {
+      "file": "wiki/releases/show-down.md",
+      "sha256": "79d2908f7037f59585d14cf3ba84161f190ec31a8dab9273b424b77fa568239c",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "release-to-be-continued": {
+      "file": "wiki/releases/to-be-continued.md",
+      "sha256": "0dbc9440ce857a61c6dd72bbd3b018252548921c4c4440c89ebc7d75a94a82a6",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F012：再收錄錄音等同性",
+        "F015：官方細分類"
+      ]
+    },
+    "event-aaa-2024": {
+      "file": "wiki/timeline/aaa-2024.md",
+      "sha256": "c6af6a1c5eb69e65092ce3473cf0319d0ccbde1a24521bcd57d7b98dbb7b1c6e",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-algorithms-blossom-release": {
+      "file": "wiki/timeline/algorithms-blossom-release.md",
+      "sha256": "d7c4d95818da606a453c7d5a770ba2b797061df0ecf814b4977921b9cceffdb8",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-beyond-the-discord-release": {
+      "file": "wiki/timeline/beyond-the-discord-release.md",
+      "sha256": "1ca18a360580e04aca1a57ce54e5a53c60d319c7592b061aa3917e7213c7364b",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-blue-whale-release": {
+      "file": "wiki/timeline/blue-whale-release.md",
+      "sha256": "f7c6e00c5ecd9a13f7eac15939cd121b028fda96f5a4a45a10c9c571a82e4a4c",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-ceremony-release": {
+      "file": "wiki/timeline/ceremony-release.md",
+      "sha256": "9ac8bb79632aa7ab6bd0811c64bc66b6a5eebba68911b6917f8a3729eee02ae2",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-d-awards-2025": {
+      "file": "wiki/timeline/d-awards-2025.md",
+      "sha256": "106dc17b8c8682eb68412dfd91c379c5a411da6301929c8dc9b27266a3f704a4",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F004：事前公告原始時間戳與獎座交付日"
+      ]
+    },
+    "event-d-awards-2026": {
+      "file": "wiki/timeline/d-awards-2026.md",
+      "sha256": "dea066ad4896b302c72a4785890cd051e81230fdb3be90e85c8642cd2d7e698c",
+      "verification": "partial",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": [
+        "F004：個別影片日期與獎座交付日"
+      ]
+    },
+    "event-discord-japanese-release": {
+      "file": "wiki/timeline/discord-japanese-release.md",
+      "sha256": "29746670426baae3dd78262b8bb86a69bcda4f381c66675570662f216f53a6ed",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-discord-tak-remix-release": {
+      "file": "wiki/timeline/discord-tak-remix-release.md",
+      "sha256": "ace35e5fccd10b56741d0fe16aca2661f1da9822d6c42cefe545934db2cc2b09",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-dreamer-picaresque-release": {
+      "file": "wiki/timeline/dreamer-picaresque-release.md",
+      "sha256": "6146ab7df5966674e47b21a92f5bee82f1a630de81807b25eb778491558dd3a9",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-fake-idol-release": {
+      "file": "wiki/timeline/fake-idol-release.md",
+      "sha256": "d6e4d40ef2464972ac4458d73af009d23954c0e4816c09f90c7ee5e1abc17690",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-first-fancon-seoul": {
+      "file": "wiki/timeline/first-fancon-seoul.md",
+      "sha256": "cd264421dacb5deaba2c7b4ddf4455af1c008488359cd275121f7854e2e87cb4",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-first-fancon-taipei": {
+      "file": "wiki/timeline/first-fancon-taipei.md",
+      "sha256": "c663284f65aa56f65b289f677398a66b7219b1cac5f9d586bdee47d7bb9d7b97",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-harmony-from-discord-release": {
+      "file": "wiki/timeline/harmony-from-discord-release.md",
+      "sha256": "beea4f5e7bc441bd3faedcf6563b8a5fc4a2fce738e706e2f1f3bc2380f32d56",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-in-a-million-noises-release": {
+      "file": "wiki/timeline/in-a-million-noises-release.md",
+      "sha256": "c09044d316862c3810675f905ce0937a821b6dc0de9f8c10fbaa92311eefb7c9",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-k-world-dream-awards-2024": {
+      "file": "wiki/timeline/k-world-dream-awards-2024.md",
+      "sha256": "37b9a14125c6893601b9ce0bb9da35e21842c02971ae77f49866ebdf67cbf049",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-kcon-japan-2025": {
+      "file": "wiki/timeline/kcon-japan-2025.md",
+      "sha256": "ec1bd1ced34c3a2e378272918b668ed6cbf03058ddffa22fc730d3d62b585819",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-mama-awards-2024": {
+      "file": "wiki/timeline/mama-awards-2024.md",
+      "sha256": "d86dccd3b4ddda05c22a10451df3e3cb34195fb87ae577ca055f0910b490c243",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-manito-release": {
+      "file": "wiki/timeline/manito-release.md",
+      "sha256": "6561d528643416777129fdae8b9101f16b4db3bec5d9b312b03d52584a23315e",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-mma-2024": {
+      "file": "wiki/timeline/mma-2024.md",
+      "sha256": "e5f016e87f9a4a30872b0bc075880f5c2fdf879e06ae133e6209db51e8cca93b",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-pentaport-2024": {
+      "file": "wiki/timeline/pentaport-2024.md",
+      "sha256": "b83af5f3f5226151d8935a05d82eaaaea3ae5416fed9a4a30962891625fdebf3",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-pentaport-2026": {
+      "file": "wiki/timeline/pentaport-2026.md",
+      "sha256": "176b4f6dbf27ab6ac0a30326e109c08f1c7b6e39f62b159294aa60605a199f7f",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-qwer-debut": {
+      "file": "wiki/timeline/qwer-debut.md",
+      "sha256": "9964555962b996fac96f91b1c907f5bf3059f1a9949c34001eac13bde19a4f9d",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-rockation-seoul-2025": {
+      "file": "wiki/timeline/rockation-seoul-2025.md",
+      "sha256": "4514700ac625615cdf98faa14c2bf61fec44a57d9bfe78b6643b2cff4e4bd013",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-rocket-launch-seoul-2026": {
+      "file": "wiki/timeline/rocket-launch-seoul-2026.md",
+      "sha256": "665092c27e96eff04941159078ca08796cbffc78d0a067b99e49c15b30fc2085",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-show-champion-first-win": {
+      "file": "wiki/timeline/show-champion-first-win.md",
+      "sha256": "76b05eb0846251dd50a010c05f6198fe0fe0a1852bdf694a3f6713430291c055",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-show-down-release": {
+      "file": "wiki/timeline/show-down-release.md",
+      "sha256": "5df02992690f5634eaa2b56016e6ec4b592ad0eb60f1516df0b7ad6d59695701",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    },
+    "event-to-be-continued-release": {
+      "file": "wiki/timeline/to-be-continued-release.md",
+      "sha256": "aff81a77f147faf4f4684dfd9376e0e98b36f76e654d755cd9bb65edfae6529a",
+      "verification": "checked",
+      "reviewed_at": "2026-11-10",
+      "note": "沿用已確認的資料、選曲與分類；檢查正式頁保留背景來源、日期／版本意義及既有資料限制。事實查核日期未變更。",
+      "limitations": []
+    }
+  }
+}

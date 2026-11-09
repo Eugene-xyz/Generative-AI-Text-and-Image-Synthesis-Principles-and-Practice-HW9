@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import { home } from '../data/home';
+import { getLibrary, section, memberInfo, entryUrl, withBase } from '../lib/wiki';
+import { renderFragment } from '../lib/markdown';
+import '../styles/editorial.css';
+const library=await getLibrary();
+const entry=library.requireEntry(home.band);
+const expected=['成團背景','四位成員','團名與出道節點','作品與重要活動入口','資料範圍與待查'];
+const chapters=(entry.body??'').split(/^## /m).slice(1).map(chunk=>chunk.split('\n')[0].trim());
+if (chapters.length!==expected.length || expected.some(name=>!chapters.includes(name))) throw new Error('Band page has unmapped chapters');
+const html=(text:string)=>renderFragment(text.replace(/^來源紀錄：.*$/gm,''),entry,library);
+const intro=html((entry.body??'').replace(/^# .+\r?\n/,'').split(/^## /m)[0]);
+const members=home.members.map(library.requireEntry);
+const sources=entry.data.sources.map(id=>library.bySource.get(id)!);
+---
+<BaseLayout title="關於 QWER" description="認識 QWER 的組團背景、團名、四位成員與出道節點，從不同起點讀懂同一個舞台。">
+  <main id="main" class="wrap band-page">
+    <nav class="editorial-breadcrumb" aria-label="麵包屑"><a href={withBase()}>首頁</a><span>/</span><span aria-current="page">樂團介紹</span></nav>
+    <header class="band-hero"><div><p class="eyebrow section-label">MEET THE BAND / QWER</p><h1>四個起點，<br />同一個 QWER<span>。</span></h1><div class="prose" set:html={intro}></div><div class="band-keys" aria-hidden="true"><span>Q</span><span>W</span><span>E</span><span>R</span></div><a class="text-link" href="#formation">從相遇的故事開始 ↓</a></div><figure><img src={withBase(site.photo.path)} width={site.photo.width} height={site.photo.height} alt={site.photo.alt} fetchpriority="high" /><figcaption>{site.photo.caption} · <a href={site.photo.source}>{site.photo.author}</a> · <a href={site.photo.licenseUrl}>{site.photo.license}</a> · 原圖未修改</figcaption></figure></header>
+    <div class="editorial-story"><aside class="editorial-toc"><span class="eyebrow section-label">THE BAND NOTES</span><nav aria-label="樂團章節"><a href="#formation">成團背景</a><a href="#members">四位成員</a><a href="#name">團名與出道</a><a href="#journey">作品與舞台</a><a href="#scope">資料範圍</a><a href="#references">來源</a></nav></aside><article class="editorial-chapters">
+      <section id="formation"><span class="eyebrow section-label">HOW THEY CAME TOGETHER</span><h2>不同經歷，走向同一個企劃</h2><div class="prose" set:html={html(section(entry,'成團背景'))}></div></section>
+      <section id="members"><span class="eyebrow section-label">FOUR MEMBERS / FOUR STORIES</span><h2>認識舞台上的四個名字</h2><div class="band-members">{members.map(member=>{const info=memberInfo(member);return <article class="band-member"><h3 class="display"><a href={entryUrl(member)}>{info.name}</a></h3><p>{info.korean} · {info.role}</p><p>{info.career}</p><a class="text-link" href={entryUrl(member)}>她的組團前經歷與加入過程 ↗</a></article>;})}</div><details class="band-official"><summary>查看官方介紹的主要分工與來源</summary><div class="prose" set:html={html(section(entry,'四位成員'))}></div></details></section>
+      <section id="name"><span class="eyebrow section-label">THE NAME / THE DEBUT</span><h2>從四個按鍵，到樂團出道</h2><div class="prose" set:html={html(section(entry,'團名與出道節點'))}></div><a class="text-link" href={entryUrl(library.requireEntry('event-qwer-debut'))}>閱讀出道日期與依據 ↗</a></section>
+      <section id="journey"><span class="eyebrow section-label">RECORDS & STAGES</span><h2>接著走進作品與舞台</h2><div class="prose" set:html={html(section(entry,'作品與重要活動入口'))}></div><div class="guide-listen-actions"><a class="button" href={withBase('discography/')}>依發行時間探索作品 ↗</a><a class="text-link" href={withBase('recommendations/')}>先找一首歌開始聽 ↗</a></div></section>
+      <section id="scope"><span class="eyebrow section-label">SCOPE & OPEN QUESTIONS</span><h2>資料範圍與待查</h2><div class="prose" set:html={html(section(entry,'資料範圍與待查'))}></div></section>
+      <section id="references"><span class="eyebrow section-label">SOURCES</span><h2>本頁來源</h2><ol class="editorial-sources">{sources.map(source=><li><a href={source.data.url}>{source.data.title} ↗</a><p>{source.data.publisher} · 查閱 {source.data.accessed_at}</p><a href={withBase(`sources/#${source.id}`)}>查核範圍</a></li>)}</ol></section>
+    </article></div>
+  </main>
+</BaseLayout>

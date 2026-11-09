@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MusicNav from './MusicNav.astro';
+import OfficialPlayer from './OfficialPlayer.astro';
+import { getLibrary, entryUrl, heading, withBase, type WikiEntry } from '../lib/wiki';
+import { musicCatalogue, musicCategory, musicDateBasis } from '../lib/music';
+import '../styles/music.css';
+interface Props { entry: WikiEntry; }
+const { entry } = Astro.props;
+const library = await getLibrary();
+const catalogue = musicCatalogue(library);
+const release = catalogue.releases.find(item => item.entry.id === entry.id);
+const media = [...catalogue.collaborations, ...catalogue.otherSongs].find(item => item.entry.id === entry.id);
+const work = release ?? media;
+if (!work) throw new Error(`Missing music view: ${entry.id}`);
+const group = release ? catalogue.releases : entry.data.category === 'collaboration' ? catalogue.collaborations : catalogue.otherSongs;
+const index = group.findIndex(item => item.entry.id === entry.id);
+const previous = group[index - 1];
+const next = group[index + 1];
+const category = release ? 'releases' : entry.data.category === 'collaboration' ? 'collaborations' : 'other-songs';
+const sources = entry.data.sources.map(id => library.bySource.get(id)!);
+const nav = release ? [['metadata', '發行資料'], ['background', '作品背景'], ['tracklist', '曲目與版本'], ['track-notes', '逐曲筆記'], ['notes', '資料限制'], ['references', '本頁來源']] : [['metadata', '作品與分類'], ['versions', '版本與官方入口'], ['notes', '資料限制'], ['references', '本頁來源']];
+---
+<BaseLayout title={`${work.main}｜${musicCategory(entry)}`} description={`QWER《${work.full}》的曲目、版本、背景與來源。保留發行日期及尚待查核的細節。`}>
+  <main id="main" class="music-page wrap">
+    <nav class="music-breadcrumb" aria-label="麵包屑"><a href={withBase()}>首頁</a><span aria-hidden="true">/</span><a href={withBase('discography/')}>音樂作品</a><span aria-hidden="true">/</span><span aria-current="page">{musicCategory(entry)}</span></nav>
+    <header class:list={['music-work-hero', { 'media-work-hero': !release }]}>
+      <div class="music-work-intro"><p class="eyebrow section-label">QWER / {release ? 'DISCOGRAPHY' : 'OFFICIAL MEDIA'}</p><div class="music-work-meta"><span class="music-badge">{release?.subtitle ?? musicCategory(entry)}</span><time datetime={work.date || undefined}>{work.date || '日期待查'}</time></div>{work.original && <p class="music-original" lang="ko">{work.original}</p>}<h1>{work.main}</h1><p class="music-date-basis">{musicDateBasis(entry)}{media && !entry.data.published_date && ' · 確切影音公開日待查'}</p><div class="prose music-intro" set:html={work.intro}></div><div class="music-hero-actions"><a class="button primary" href={release ? '#tracklist' : '#versions'}>{release ? '查看曲目與版本' : '查看版本與官方入口'} <span aria-hidden="true">↓</span></a><a class="text-link" href={withBase(`discography/tracks/#${category}`)}>全部曲目索引 ↗</a></div></div>
+      {release && <OfficialPlayer workId={entry.id} title={work.full} physicalOnly={entry.data.release_type === 'special-lp'} />}
+    </header>
+    <MusicNav current={category} />
+    <div class="music-story">
+      <aside class="music-toc"><span class="eyebrow section-label">IN THIS RECORD</span><nav aria-label="作品章節">{nav.map(([id,label])=><a href={`#${id}`}>{label}</a>)}</nav><p>資料核對<br />{entry.data.verified_at ?? '待查'}</p><a class="text-link" href={withBase('discography/')}>← 音樂作品總覽</a></aside>
+      <article class="music-chapters">
+        <section class="music-chapter" id="metadata"><span class="eyebrow section-label">THE DETAILS</span><h2>{release ? '發行資料' : '作品與分類'}</h2><dl class="music-facts">{work.values.map(row=><div><dt>{row.label}</dt><dd class="prose" set:html={row.value}></dd></div>)}</dl>{release && <div class="prose music-footnote" set:html={release.metadataNotes}></div>}</section>
+        {release && <>
+          <section class="music-chapter" id="background"><span class="eyebrow section-label">BEHIND THE RECORD</span><h2>作品背景</h2><div class="prose" set:html={release.background}></div></section>
+          <section class="music-chapter" id="tracklist"><span class="eyebrow section-label">TRACKS & EDITIONS</span><h2>{entry.data.release_type === 'special-lp' ? '已確認收錄曲・曲序待查' : '曲目與收錄版本'}</h2><div class="prose music-notice" set:html={release.trackNotesBefore}></div><ul class="work-tracklist">{release.tracks.map(track=><li><span class:list={['track-order', { unknown: track.order === '待查' }]}>{track.order === '待查' ? '曲序待查' : track.order.padStart(2,'0')}</span><div><h3><a href={`#${track.anchor}`}>{track.title}</a></h3><p>{[track.language,track.version,track.scope].filter(Boolean).join(' · ')}</p></div><a class="track-jump" href={`#${track.anchor}`} aria-label={`閱讀 ${track.title} 的版本簡介`}>筆記 ↘</a></li>)}</ul><div class="prose music-footnote" set:html={release.trackNotesAfter}></div></section>
+          <section class="music-chapter" id="track-notes"><span class="eyebrow section-label">LISTENING NOTES</span><h2>逐曲筆記</h2>{release.tracks.map(track=>{
+            const siblings = catalogue.tracks.filter(other=>other.songId===track.songId && (other.work.id!==entry.id || other.versionId!==track.versionId));
+            return <section id={track.anchor} class="track-note" aria-label={track.title}><div class="track-note-heading"><span class="eyebrow">{track.order === '待查' ? 'ORDER UNCONFIRMED' : `TRACK ${track.order.padStart(2,'0')}`}</span><h3>{track.title}</h3></div><div class="track-version-line">{track.language && <span>{track.language}</span>}<span>{track.version}</span><span>{track.scope}</span></div><div class="prose" set:html={track.description}></div><div class:list={['track-listen prose',{ 'reference-only':track.referenceOnly }]}><span>{track.referenceOnly ? '原版參考・非 LP 音源' : track.scope === 'CD 限定' ? '版本資料與收聽限制' : '官方／正版平台入口'}</span><div set:html={track.entryHtml}></div></div>{siblings.length>0 && <details class="track-relations"><summary>此曲的其他收錄與版本（{siblings.length}）</summary><p>相同曲名或歌曲主體，不代表使用同一錄音；以下保留各次收錄說明。</p><ul>{siblings.map(other=><li><a href={other.href}>{heading(other.work)} — {other.title}</a><span>{[other.language,other.version].filter(Boolean).join(' · ')}</span></li>)}</ul></details>}</section>;
+          })}</section>
+        </>}
+        {media && <section class="music-chapter" id="versions"><span class="eyebrow section-label">VERSIONS & PUBLICATIONS</span><h2>版本、時間與官方入口</h2><p class="music-section-note">以下分別記錄影片形式與公開脈絡；不同影片不直接等於不同錄音。</p><div class="media-versions">{media.versions.map(row=><section class="media-version" id={row.anchor}><p class="media-version-date">{row.date}</p><h3>{row.kind}</h3><p class="prose" set:html={row.detail}></p><div class="track-listen prose"><span>官方入口與存取限制</span><div set:html={row.entryHtml}></div></div></section>)}</div><div class="prose music-footnote" set:html={media.versionNotes}></div>{media.descriptions && <div class="prose media-description" set:html={media.descriptions}></div>}</section>}
+        <section class="music-chapter music-limitations" id="notes"><span class="eyebrow section-label">READING NOTES</span><h2>版本範圍與待查說明</h2><div class="prose" set:html={work.notes}></div>{release && <div class="prose music-connections" set:html={release.connections}></div>}</section>
+        {work.recommendations && <section class="music-chapter"><span class="eyebrow section-label">KEEP LISTENING</span><h2>延伸歌曲導聆</h2><div class="prose" set:html={work.recommendations}></div></section>}
+        <section class="music-chapter" id="references"><span class="eyebrow section-label">SOURCES</span><h2>本頁來源</h2><ol class="music-sources">{sources.map(source=><li><a href={source.data.url}>{source.data.title} ↗</a><p>{source.data.publisher} · 查閱 {source.data.accessed_at}</p><a class="source-scope" href={withBase(`sources/#${source.id}`)}>閱讀查核範圍</a></li>)}</ol><div class="music-related"><h3>相關筆記</h3>{entry.data.related.map(library.requireEntry).map(item=><a href={entryUrl(item)}>{heading(item)} ↗</a>)}</div></section>
+      </article>
+    </div>
+    <nav class="music-pagination" aria-label="依時間繼續閱讀">{previous ? <a href={entryUrl(previous.entry)}><span>← 上一筆{musicCategory(entry)}</span><strong>{previous.main}</strong><time datetime={previous.date || undefined}>{previous.date || '日期待查'}</time></a> : <a href={withBase('discography/')}><span>← 回到音樂作品</span><strong>從第一張作品開始</strong></a>}{next ? <a href={entryUrl(next.entry)}><span>下一筆{musicCategory(entry)} →</span><strong>{next.main}</strong><time datetime={next.date || undefined}>{next.date || '日期待查'}</time></a> : <a href={withBase('discography/tracks/')}><span>繼續閱讀 →</span><strong>全部曲目與版本索引</strong></a>}</nav>
+  </main>
+</BaseLayout>

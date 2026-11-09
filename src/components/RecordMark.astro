@@ -1,0 +1,5 @@
+---
+interface Props { label?: string; }
+const { label = 'QWER / STAGE NOTES' } = Astro.props;
+---
+<div class="music-record-mark" aria-hidden="true"><strong>QWER</strong><span>{label}</span></div>

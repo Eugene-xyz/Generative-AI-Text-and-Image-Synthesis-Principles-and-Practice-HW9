@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MusicNav from '../../components/MusicNav.astro';
+import RecordMark from '../../components/RecordMark.astro';
+import { getLibrary, entryUrl, withBase } from '../../lib/wiki';
+import { musicCatalogue } from '../../lib/music';
+import '../../styles/music.css';
+const library = await getLibrary();
+const catalogue = musicCatalogue(library);
+const years = [...new Set(catalogue.releases.map(item=>item.date.slice(0,4)))];
+const cutoff = [...catalogue.releases,...catalogue.collaborations,...catalogue.otherSongs].map(item=>item.entry.data.verified_at ?? '').sort().at(-1);
+const mediaGroups = [{id:'collaborations',label:'官方合作影音',english:'COLLABORATIONS',items:catalogue.collaborations,description:'品牌、遊戲與官方影音企劃，與正式串流／實體發行分開。'}, {id:'other-songs',label:'其他官方公開歌曲',english:'OTHER OFFICIAL SONGS',items:catalogue.otherSongs,description:'非品牌合作的官方原創公開歌曲，獨立發行狀態另行說明。'}];
+---
+<BaseLayout title="音樂作品" description="依時間探索 QWER 的正式發行、曲目與版本，另列官方合作影音及其他官方公開歌曲。">
+  <main id="main" class="music-page wrap">
+    <nav class="music-breadcrumb" aria-label="麵包屑"><a href={withBase()}>首頁</a><span aria-hidden="true">/</span><span aria-current="page">音樂作品</span></nav>
+    <header class="discography-hero"><div><p class="eyebrow section-label">THE RECORDS / QWER STAGE NOTES</p><h1>把每一個時期，<br />放進同一份歌單<span>。</span></h1><p class="discography-lead">從第一張作品開始，沿著發行時間，<br />閱讀歌曲、版本與背後的故事。</p><a class="text-link" href={withBase('discography/tracks/')}>從全部曲目索引找一首歌 <span aria-hidden="true">↗</span></a></div><div class="discography-visual"><RecordMark label="QWER / DISCOGRAPHY" /><span class="eyebrow">MUSIC, IN CHRONOLOGICAL ORDER.</span></div></header>
+    <MusicNav current="releases" />
+    <section class="music-catalogue" id="releases" aria-labelledby="releases-heading"><div class="music-section-heading"><div><span class="eyebrow section-label">01 / OFFICIAL RELEASES</span><h2 id="releases-heading">正式發行</h2></div><p>{catalogue.releases.length} 筆發行紀錄<br /><span>包含專輯、單曲、語言版本與特別黑膠</span></p></div><nav class="year-nav" aria-label="發行年份">{years.map(year=><a href={`#year-${year}`}>{year}</a>)}</nav>
+      {years.map(year=><section class="release-year" id={`year-${year}`} aria-labelledby={`year-title-${year}`}><h3 id={`year-title-${year}`} class="display">{year}</h3><div class="release-rows">{catalogue.releases.filter(item=>item.date.startsWith(year)).map(item=><article class="release-row"><div class="release-row-date"><time datetime={item.date}>{item.date.slice(5).replace('-',' / ')}</time><span>{item.type}</span></div><div class="release-row-body">{item.original && <p lang="ko">{item.original}</p>}<h4><a href={entryUrl(item.entry)}>{item.main}</a></h4><div class="release-row-meta"><span>{item.subtitle}</span><span>{item.entry.data.release_type==='special-lp' ? `${item.tracks.length} 首已確認收錄・曲序待查` : `${item.digitalCount} 軌數位版`}</span>{item.tracks.length>item.digitalCount && item.digitalCount>0 && <span>另有實體限定曲</span>}</div></div><a class="release-row-link" href={entryUrl(item.entry)} aria-label={`閱讀 ${item.full} 的曲目與版本`}>作品筆記 <span aria-hidden="true">↗</span></a></article>)}</div></section>)}
+    </section>
+    {mediaGroups.map((group,index)=><section class="music-catalogue media-catalogue" id={group.id} aria-labelledby={`${group.id}-heading`}><div class="music-section-heading"><div><span class="eyebrow section-label">0{index+2} / {group.english}</span><h2 id={`${group.id}-heading`}>{group.label}</h2></div><p>{group.items.length} 個企劃／歌曲頁<br /><span>依可確認的時間節點排列</span></p></div><p class="music-section-note">{group.description} 日期旁保留公開、公告或演出的性質。</p><div class="media-list">{group.items.map(item=><article><div class="media-list-date"><time datetime={item.date || undefined}>{item.date || '日期待查'}</time><span>{item.basis}</span></div><div><span class="music-badge">{group.label}</span><h3><a href={entryUrl(item.entry)}>{item.full}</a></h3><div class="prose music-media-intro" set:html={item.intro}></div>{!item.entry.data.published_date && <p class="music-pending">確切影音公開日待查</p>}<a class="text-link" href={entryUrl(item.entry)}>版本、官方入口與來源 ↗</a></div></article>)}</div></section>)}
+    <aside class="music-scope" id="scope"><span class="eyebrow section-label">ABOUT THIS CATALOGUE</span><h2>先分清版本，再一起聽。</h2><p>本批資料核對截至 {cutoff}。正式發行、合作影音與其他公開歌曲分開計數；同曲不同語言、混音、伴奏與再次收錄也分開記錄。作品數、收錄軌次與不同歌曲數有不同意義。</p><p>曲序、語言或錄音關係尚未核實時，原頁會保留待查說明。黑膠的原版參考連結不等於黑膠音源，CD 商品資料也不等於線上播放。這份目錄不宣稱已證明所有地區與通路均無遺漏。</p><a class="text-link" href={withBase('sources/#scope')}>資料來源與收錄範圍 ↗</a></aside>
+  </main>
+</BaseLayout>

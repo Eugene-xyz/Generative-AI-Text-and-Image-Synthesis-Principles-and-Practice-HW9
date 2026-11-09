@@ -1,0 +1,11 @@
+---
+import EventPage from '../../components/EventPage.astro';
+import { getLibrary, slugOf, type WikiEntry } from '../../lib/wiki';
+export async function getStaticPaths() {
+  const library = await getLibrary();
+  return library.all.filter(entry=>entry.data.type==='event').map(entry=>({params:{slug:slugOf(entry).split('/').at(-1)},props:{entry}}));
+}
+interface Props { entry: WikiEntry; }
+const { entry } = Astro.props;
+---
+<EventPage entry={entry} />

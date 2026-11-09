@@ -1,0 +1,8 @@
+---
+import RecommendationPage from '../../components/RecommendationPage.astro';
+import { getLibrary, slugOf, type WikiEntry } from '../../lib/wiki';
+export async function getStaticPaths(){const library=await getLibrary();return library.all.filter(entry=>entry.data.type==='recommendation').map(entry=>({params:{slug:slugOf(entry).split('/').at(-1)},props:{entry}}));}
+interface Props {entry:WikiEntry;}
+const {entry}=Astro.props;
+---
+<RecommendationPage entry={entry} />

@@ -1,0 +1,7 @@
+---
+import { withBase } from '../lib/wiki';
+interface Props { current?: string; }
+const { current } = Astro.props;
+const links = [ ['releases', '正式發行', 'discography/#releases'], ['tracks', '全部曲目索引', 'discography/tracks/'], ['collaborations', '合作影音', 'discography/#collaborations'], ['other-songs', '其他官方公開歌曲', 'discography/#other-songs'] ];
+---
+<nav class="music-nav" aria-label="音樂分類">{links.map(([id, label, route]) => <a href={withBase(route)} aria-current={current === id ? 'location' : undefined}>{label}<span aria-hidden="true">↗</span></a>)}</nav>

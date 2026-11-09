@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { home, categories } from '../data/home';
+import { getLibrary, entryUrl, heading, entryDate, dateLabel, eventCategory, withBase, type WikiEntry } from '../lib/wiki';
+const library = await getLibrary();
+const filter = (type: string) => library.all.filter(entry => entry.data.type === type);
+const byDate = (a: WikiEntry, b: WikiEntry) => entryDate(a, library).localeCompare(entryDate(b, library)) || a.id.localeCompare(b.id);
+const featured = home.recommendations.map(library.requireEntry);
+const groups = [
+  { id: 'members', name: '樂團與四位成員', entries: [library.requireEntry(home.band), ...home.members.map(library.requireEntry)], kind: 'people' },
+  { id: 'releases', name: '正式發行｜由早到晚', entries: filter('release').sort(byDate), kind: 'releases' },
+  { id: 'timeline', name: '出道、發行與重要活動', entries: filter('event').sort(byDate), kind: 'events' },
+  { id: 'collaborations', name: '官方合作影音', entries: filter('official-media').filter(e => e.data.category === 'collaboration').sort(byDate), kind: 'media' },
+  { id: 'other-songs', name: '其他官方公開歌曲', entries: filter('official-media').filter(e => e.data.category === 'original-publication').sort(byDate), kind: 'media' },
+];
+---
+<BaseLayout title="全部筆記">
+  <main id="main" class="wrap">
+    <header class="reading-head"><p class="eyebrow section-label">THE READING ROOM</p><h1>從一段故事，走進 QWER</h1><p class="muted">既有 Wiki 的閱讀入口。人物、作品、活動與歌曲導聆，分別保留來源與版本說明。</p></header>
+    <section class="library-section" id="recommendations"><span class="eyebrow section-label">START WITH THESE THREE</span><h2>歌曲推薦：先聽 Dear、T.B.H、Dreamer</h2><ul class="library-list">{featured.map(entry => <li><span class="meta">先聽這三首 · {categories[entry.data.category!]}</span><a href={entryUrl(entry)}>{heading(entry)} <span aria-hidden="true">↗</span></a></li>)}</ul>
+      {Object.entries(categories).map(([key, name]) => <section class="library-section"><h3>{name}</h3><ul class="library-list">{filter('recommendation').filter(e => e.data.category === key).sort((a, b) => (a.data.order_in_category ?? 0) - (b.data.order_in_category ?? 0)).map(entry => <li><span class="meta">網站導聆</span><a href={entryUrl(entry)}>{heading(entry)} <span aria-hidden="true">↗</span></a></li>)}</ul></section>)}
+    </section>
+    {groups.map(group => <section class="library-section" id={group.id}><h2>{group.name}</h2>{group.kind === 'events' && <p class="muted">演出、頒獎典禮與音樂節目一位分別標示。<a href={withBase('timeline/')}>正式時間線</a>另整合影音節點，可依年份與類別閱讀。</p>}{group.kind === 'releases' && <p class="muted">{group.entries.length} 筆發行紀錄，包含不同載體與版本；不是不同歌曲的總數。</p>}<ul class="library-list">{group.entries.map(entry => <li><span class="meta">{group.kind === 'people' ? '職涯與樂團背景' : dateLabel(entry, library)}{group.kind === 'events' && <><br />{eventCategory(entry.data.category)}</>}{group.kind === 'media' && <><br />日期性質詳見內頁</>}</span><a href={entryUrl(entry)}>{entry.data.type === 'member' ? heading(entry) : entry.data.title} <span aria-hidden="true">↗</span></a></li>)}</ul></section>)}
+  </main>
+</BaseLayout>

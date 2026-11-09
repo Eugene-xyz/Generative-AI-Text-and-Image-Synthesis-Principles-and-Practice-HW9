@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MusicNav from '../../components/MusicNav.astro';
+import { getLibrary, entryUrl, withBase } from '../../lib/wiki';
+import { musicCatalogue } from '../../lib/music';
+import '../../styles/music.css';
+const library = await getLibrary();
+const catalogue = musicCatalogue(library);
+const mediaGroups = [{id:'collaborations',label:'官方合作影音',items:catalogue.collaborations},{id:'other-songs',label:'其他官方公開歌曲',items:catalogue.otherSongs}];
+const totalRows = catalogue.tracks.length + [...catalogue.collaborations,...catalogue.otherSongs].reduce((n,item)=>n+item.versions.length,0);
+---
+<BaseLayout title="全部曲目與版本索引" description="搜尋 QWER 曲名與版本，按所屬作品發行順序閱讀；合作影音和其他公開歌曲分區保留。">
+  <main id="main" class="music-page wrap">
+    <nav class="music-breadcrumb" aria-label="麵包屑"><a href={withBase()}>首頁</a><span aria-hidden="true">/</span><a href={withBase('discography/')}>音樂作品</a><span aria-hidden="true">/</span><span aria-current="page">全部曲目索引</span></nav>
+    <header class="track-index-heading"><span class="eyebrow section-label">FIND A SONG / FOLLOW A VERSION</span><h1>找到一首歌，<br />也讀懂它的版本<span>。</span></h1><p>正式發行依作品日期與已知曲序排列；同曲再次收錄各列一筆。<br />合作影音與其他官方公開歌曲另列，保留日期性質與入口差異。</p></header>
+    <MusicNav current="tracks" />
+    <div class="track-search"><label for="track-query">搜尋曲名、作品或版本</label><div><input type="search" id="track-query" placeholder="例如：Discord、日文、混音、Dear" autocomplete="off" /><button type="button" id="clear-track-query">清除搜尋</button></div><p id="track-results" role="status" aria-live="polite">目前顯示 {totalRows} 筆收錄項／影音入口；並非不同歌曲或獨立錄音總數。</p></div>
+    <p class="no-track-results" hidden>找不到符合的曲目，請換一個曲名或版本關鍵字。</p>
+    <section class="index-category" id="releases"><div class="music-section-heading"><div><span class="eyebrow section-label">01 / RELEASE TRACKS</span><h2>正式發行的曲目</h2></div><p>{catalogue.tracks.length} 筆收錄項<br /><span>含再次收錄、實體限定與待查版本</span></p></div>
+      {catalogue.releases.map(work=><section class="track-index-work" data-track-group><header><time datetime={work.date}>{work.date}</time><h3><a href={entryUrl(work.entry)}>{work.full}</a></h3><p>{work.subtitle}{work.entry.data.release_type==='special-lp' && ' · 下列列舉不是 A／B 面播放順序'}</p></header><ul>{work.tracks.map(track=><li data-track-row data-search={`${work.full} ${track.title} ${track.language} ${track.version} ${track.scope}`}><span class="index-order">{track.order==='待查' ? '曲序待查' : track.order.padStart(2,'0')}</span><div><a href={track.href}>{track.title} <span aria-hidden="true">↗</span></a><p>{[track.language,track.version,track.scope].filter(Boolean).join(' · ')}</p></div>{track.referenceOnly && <span class="index-reference">原版參考非 LP</span>}</li>)}</ul></section>)}
+    </section>
+    {mediaGroups.map((group,index)=><section class="index-category" id={group.id}><div class="music-section-heading"><div><span class="eyebrow section-label">0{index+2} / OFFICIAL PUBLICATIONS</span><h2>{group.label}</h2></div></div><p class="music-section-note">以企劃的可確認節點排列；同企劃內的影片入口分開列出，未確認上線日的影片不推定先後。</p>{group.items.map(work=><section class="track-index-work" data-track-group><header><time datetime={work.date || undefined}>{work.date || '日期待查'}</time><h3><a href={entryUrl(work.entry)}>{work.full}</a></h3><p>{work.basis}</p></header><ul>{work.versions.map(row=><li data-track-row data-search={`${work.full} ${row.kind} ${row.date}`}><span class="index-order">影音入口</span><div><a href={row.href}>{work.full} — {row.kind} ↗</a><p>{row.date}</p></div></li>)}</ul></section>)}</section>)}
+    <aside class="music-scope"><h2>曲名一樣，仍需要核對錄音。</h2><p>這份索引回連到每一筆作品的簡介與來源；語言版、伴奏、混音、LP 改編與錄音關係待查的再次收錄分別保留。頁面中的官方入口標示了可讀範圍，沒有把商品資料或原版參考當成指定音源。</p><a class="text-link" href={withBase('discography/#scope')}>閱讀收錄範圍 ↗</a></aside>
+  </main>
+</BaseLayout>
+<script>
+  const query = document.querySelector<HTMLInputElement>('#track-query');
+  const rows = [...document.querySelectorAll<HTMLElement>('[data-track-row]')];
+  const status = document.querySelector<HTMLElement>('#track-results');
+  const empty = document.querySelector<HTMLElement>('.no-track-results');
+  const normalize = (value: string) => value.normalize('NFKC').toLocaleLowerCase().trim();
+  const update = () => {
+    const terms = normalize(query?.value ?? '').split(/\s+/).filter(Boolean);
+    let count = 0;
+    rows.forEach(row => { row.hidden = !terms.every(term => normalize(row.dataset.search ?? '').includes(term)); if (!row.hidden) count++; });
+    document.querySelectorAll<HTMLElement>('[data-track-group]').forEach(group => { group.hidden = ![...group.querySelectorAll<HTMLElement>('[data-track-row]')].some(row=>!row.hidden); });
+    document.querySelectorAll<HTMLElement>('.index-category').forEach(group => { group.hidden = ![...group.querySelectorAll<HTMLElement>('[data-track-row]')].some(row=>!row.hidden); });
+    if (status) status.textContent = `目前顯示 ${count} 筆收錄項／影音入口；並非不同歌曲或獨立錄音總數。`;
+    if (empty) empty.hidden = count !== 0;
+  };
+  query?.addEventListener('input', update);
+  document.querySelector('#clear-track-query')?.addEventListener('click', () => { if(query) query.value=''; update(); query?.focus(); });
+</script>

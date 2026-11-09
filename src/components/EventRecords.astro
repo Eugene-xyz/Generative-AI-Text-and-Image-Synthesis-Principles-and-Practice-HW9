@@ -1,0 +1,8 @@
+---
+import type { EventRecordsView } from '../lib/timeline';
+interface Props { content: EventRecordsView; }
+const { content } = Astro.props;
+---
+{content.before && <div class="prose" set:html={content.before}></div>}
+{content.records.length>0 && <div class="event-records">{content.records.map(record=><section class="event-record"><h3 class="prose" set:html={record.title}></h3><dl>{record.fields.map(field=><div><dt>{field.label}</dt><dd class="prose" set:html={field.value}></dd></div>)}</dl></section>)}</div>}
+{content.after && <div class="prose event-record-note" set:html={content.after}></div>}

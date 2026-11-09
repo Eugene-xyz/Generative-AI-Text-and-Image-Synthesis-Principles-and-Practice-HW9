@@ -1,0 +1,21 @@
+:root {
+  color-scheme: dark;
+  --bg: #0c0e13;
+  --surface: #171b24;
+  --text: #f4f5f7;
+  --muted: #b7bfcd;
+  --berry: #ff647c;
+  --ice: #83d9ee;
+  --rule: #343b49;
+  --body: 'Noto Sans TC Variable', 'Microsoft JhengHei', system-ui, sans-serif;
+  --display: 'Barlow Condensed', Impact, sans-serif;
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 3rem;
+  --space-6: 4.5rem;
+  --space-7: 6rem;
+  --radius: .25rem;
+  --page-width: 1248px;
+}

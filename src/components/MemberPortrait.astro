@@ -1,0 +1,12 @@
+---
+import { memberPhotos } from '../data/member-photos';
+import { withBase } from '../lib/wiki';
+interface Props { memberId: string; name: string; eager?: boolean; }
+const { memberId, name, eager = false } = Astro.props;
+const photo = memberPhotos[memberId];
+---
+{photo && <figure class="member-portrait">
+  <div class="portrait-frame"><img src={withBase(photo.path)} width={photo.width} height={photo.height} alt={photo.alt} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} /></div>
+  <figcaption><span class="portrait-caption">{photo.caption}</span><span><a href={photo.source}>{photo.author}</a> · <a href={photo.licenseUrl}>{photo.license}</a> · {photo.modification}</span></figcaption>
+</figure>}
+{!photo && <div class="portrait-pending" aria-label={`${name} 個人照片待選`}><span class="eyebrow">PORTRAIT SELECTION</span><span class="display">{name}</span><p>個人照片待選</p></div>}

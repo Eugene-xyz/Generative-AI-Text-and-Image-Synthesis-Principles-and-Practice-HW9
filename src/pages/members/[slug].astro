@@ -1,0 +1,14 @@
+---
+import MemberProfile from '../../components/MemberProfile.astro';
+import { getLibrary, slugOf, type WikiEntry } from '../../lib/wiki';
+
+export async function getStaticPaths() {
+  const library = await getLibrary();
+  return library.all.filter(entry => entry.data.type === 'member').map(entry => ({
+    params: { slug: slugOf(entry).replace(/^members\//, '') }, props: { entry },
+  }));
+}
+interface Props { entry: WikiEntry; }
+const { entry } = Astro.props;
+---
+<MemberProfile entry={entry} />

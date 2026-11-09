@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { home, categories } from '../data/home';
+import { site } from '../data/site';
+import { getLibrary, entryUrl, heading, memberInfo, section, tableValue, plain, withBase, dateLabel, eventCategory } from '../lib/wiki';
+import '../styles/home.css';
+
+const library = await getLibrary();
+const band = library.requireEntry(home.band);
+const intro = plain((band.body ?? '').split('\n').find(line => line.startsWith('QWER 是'))?.split('。')[0] ?? '') + '。';
+const members = home.members.map(id => { const entry = library.requireEntry(id); return { entry, ...memberInfo(entry) }; });
+const picks = home.recommendations.map((id, index) => {
+  const entry = library.requireEntry(id);
+  if (entry.data.featured_order !== index + 1) throw new Error('Homepage recommendation order disagrees with Wiki');
+  const title = heading(entry);
+  return { entry, name: title.split('（')[0], korean: title.match(/（(.+?)）/)?.[1],
+    reason: plain(section(entry, '推薦理由（網站導聆）')),
+    version: tableValue(entry, '推薦版本'),
+    work: library.requireEntry(entry.data.work_id!),
+  };
+});
+const releases = home.releases.map(library.requireEntry).sort((a, b) => a.data.release_date!.localeCompare(b.data.release_date!));
+const events = home.events.map(library.requireEntry).sort((a, b) => a.data.date!.localeCompare(b.data.date!));
+const releaseCount = library.all.filter(e => e.data.type === 'release').length;
+const recommendationCount = library.all.filter(e => e.data.type === 'recommendation').length;
+const cutoff = library.all.map(e => e.data.verified_at ?? '').sort().at(-1);
+---
+<BaseLayout>
+  <main id="main">
+    <section class="hero wrap" id="band" aria-labelledby="hero-title">
+      <div class="hero-intro">
+        <p class="eyebrow section-label">AN UNOFFICIAL FAN NOTEBOOK</p>
+        <h1 id="hero-title"><span class="hero-qwer">QWER<span class="hero-dot">.</span></span><span class="hero-subtitle">樂團與音樂筆記</span></h1>
+        <p class="hero-statement">不同的起點，<br />同一個舞台。</p>
+        <p class="hero-description">{intro}</p>
+        <div class="hero-actions"><a href="#members" class="button primary">認識四位成員 <span aria-hidden="true">↓</span></a><a href="#listen" class="text-link">先聽三首 <span aria-hidden="true">↗</span></a></div>
+        <a class="hero-source" href={entryUrl(band)}>樂團故事與資料來源 <span aria-hidden="true">↗</span></a>
+      </div>
+      <figure class="hero-photo">
+        <div class="photo-topline"><span class="eyebrow">FOUR MEMBERS. ONE STAGE.</span><span class="photo-number">01 / QWER</span></div>
+        <div class="photo-frame"><img src={withBase(site.photo.path)} width={site.photo.width} height={site.photo.height} alt={site.photo.alt} loading="eager" fetchpriority="high" /></div>
+        <figcaption><span class="photo-caption">{site.photo.caption}</span><span class="photo-credit"><a href={site.photo.source}>{site.photo.author}</a> · <a href={site.photo.licenseUrl}>{site.photo.license}</a> · 影片截圖，原圖未修改</span></figcaption>
+        <div class="hero-caption-line"><span class="eyebrow">QWER STAGE NOTES / MUSIC & STORIES</span><span aria-hidden="true" class="sound-bars"><i></i><i></i><i></i><i></i><i></i></span></div>
+      </figure>
+    </section>
+
+    <section class="members-section wrap" id="members" aria-labelledby="members-title">
+      <div class="section-heading"><div><span class="eyebrow section-label">01 — MEET THE MEMBERS</span><h2 id="members-title">四個名字，四段起點</h2></div><p>從組團前的經歷，<br />認識她們如何走到一起。</p></div>
+      <div class="member-grid">
+        {members.map((member, index) => <article class="member-card">
+          <div class="member-top"><span class="member-number display">0{index + 1}</span><span class="member-korean" lang="ko">{member.korean}</span></div>
+          <h3 class="member-name display"><a href={entryUrl(member.entry)}>{member.name}</a></h3>
+          <p class="member-role">{member.role}</p>
+          <div class="member-before"><span class="eyebrow">BEFORE QWER</span><p>{member.career}</p></div>
+          <a href={entryUrl(member.entry)} class="text-link" aria-label={`閱讀 ${member.name} 的職涯與來源`}>閱讀她的故事 <span aria-hidden="true">↗</span></a>
+        </article>)}
+      </div>
+    </section>
+
+    <section class="listen-section" id="listen" aria-labelledby="listen-title">
+      <div class="wrap">
+        <div class="section-heading"><div><span class="eyebrow section-label">02 — PRESS PLAY</span><h2 id="listen-title">認識 QWER，先聽這三首</h2></div><a href={withBase('recommendations/')} class="text-link">全部 {recommendationCount} 首導聆 <span aria-hidden="true">↗</span></a></div>
+        <div class="picks-grid">
+          {picks.map((pick, index) => <article class="pick-card">
+            <div class="pick-top"><span class="eyebrow">PICK 0{index + 1}</span><span class="pick-category">{categories[pick.entry.data.category!]}</span></div>
+            <h3 class="pick-title display"><a href={entryUrl(pick.entry)}>{pick.name}</a></h3>
+            <p class="pick-korean" lang="ko">{pick.korean}</p>
+            <p class="pick-reason">{pick.reason}</p>
+            <div class="pick-version"><span>推薦版本</span><p>{pick.version}</p></div>
+            <div class="pick-actions"><a href={pick.entry.data.listen_url} class="listen-link" aria-label={`前往 ${pick.name} 的正版專輯入口，${pick.entry.data.listen_locator}`}><span class="play-symbol" aria-hidden="true">▷</span> 正版收聽 <span aria-hidden="true">↗</span></a><a href={entryUrl(pick.entry)} class="pick-detail">導聆與來源</a></div>
+          </article>)}
+        </div>
+        <p class="listen-footnote">此處連至正版專輯頁，曲目位置與版本已附於導聆；實際播放依平台帳號與地區提供。選曲順序是閱讀安排。</p>
+      </div>
+    </section>
+
+    <div class="journey wrap">
+      <section id="releases" aria-labelledby="releases-title">
+        <div class="section-heading"><div><span class="eyebrow section-label">03 — THE RECORDS</span><h2 id="releases-title">從第一張作品開始</h2></div></div>
+        <p class="section-intro">沿著發行順序，走進不同時期的音樂。</p>
+        <ol class="release-list">
+          {releases.map((release, index) => <li><a href={entryUrl(release)}><span class="record-art" aria-hidden="true"><span class="record-ring"></span><span class="record-index display">0{index + 1}</span></span><span class="record-info"><time datetime={release.data.release_date!}>{release.data.release_date}</time><span class="record-title">{heading(release)}</span><span class="record-type">{tableValue(release, '發行類型')}</span></span><span class="record-arrow" aria-hidden="true">↗</span></a></li>)}
+        </ol>
+        <a href={withBase('discography/')} class="text-link">查看 {releaseCount} 筆正式發行與版本 <span aria-hidden="true">↗</span></a>
+        <p class="catalog-note">合作影音與其他官方公開歌曲另列，避免重複計算。</p>
+      </section>
+      <section id="timeline" aria-labelledby="timeline-title">
+        <div class="section-heading"><div><span class="eyebrow section-label">04 — ON THE STAGE</span><h2 id="timeline-title">一步一步，走上舞台</h2></div></div>
+        <p class="section-intro">從出道到巡演，回看幾個重要節點。</p>
+        <ol class="timeline-list">
+          {events.map(event => <li><div class="event-meta"><time datetime={event.data.date!}>{dateLabel(event, library)}</time><span class="event-type">{eventCategory(event.data.category)}</span></div><h3><a href={entryUrl(event)}>{event.data.title}</a></h3></li>)}
+        </ol>
+        <a href={withBase('timeline/')} class="text-link">閱讀活動與發行紀錄 <span aria-hidden="true">↗</span></a>
+      </section>
+    </div>
+
+    <aside class="about-strip wrap" aria-label="關於這份筆記"><div><span class="eyebrow section-label">ABOUT THESE NOTES</span><h2>每一段故事，都有出處。</h2><p>這是一份持續整理的非官方樂團筆記。人物、發行與活動附有來源，尚未確認的細節保留待查。</p></div><div class="about-end"><a href={withBase('sources/')} class="button">關於網站與資料來源 <span aria-hidden="true">↗</span></a><span>本批資料核對截至 {cutoff}</span></div></aside>
+  </main>
+</BaseLayout>

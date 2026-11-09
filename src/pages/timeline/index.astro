@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TimelineEntry from '../../components/TimelineEntry.astro';
+import { getLibrary, withBase } from '../../lib/wiki';
+import { timelineCatalogue, timelineCategories, type TimelineCategory } from '../../lib/timeline';
+import '../../styles/timeline.css';
+const library = await getLibrary();
+const timeline = timelineCatalogue(library);
+const categories = Object.entries(timelineCategories).map(([id,value])=>({id,...value,count:timeline.counts[id as TimelineCategory]}));
+const firstYear = timeline.groups[0]?.year;
+const lastYear = timeline.groups.at(-1)?.year;
+---
+<BaseLayout title="發展時間線" description="依時間閱讀 QWER 出道、作品發行、重要演出、頒獎典禮與音樂節目一位，另保留影音公開與合作節點及每筆來源。">
+  <main id="main" class="journey-page wrap">
+    <nav class="journey-breadcrumb" aria-label="麵包屑"><a href={withBase()}>首頁</a><span aria-hidden="true">/</span><span aria-current="page">發展時間線</span></nav>
+    <header class="journey-hero"><div><span class="eyebrow section-label">THE JOURNEY / QWER STAGE NOTES</span><h1>從第一聲和弦，<br />走向下一個舞台<span>。</span></h1><p>把出道、發行與舞台上的重要時刻，<br />放回各自的時間與脈絡。</p><a class="text-link" href="#chronology">沿著時間往下讀 <span aria-hidden="true">↓</span></a></div><aside class="journey-range" aria-label="收錄年份與資料範圍"><div class="display"><span>{firstYear}</span><span aria-hidden="true">—</span><span>{lastYear}</span></div><p>{timeline.nodes.length} 筆時間節點 · 每筆保留來源</p><p class="journey-cutoff">沿用截至 {timeline.cutoff} 的 Wiki 資料<br />精選活動，不是全生涯場次或獎項總數。</p></aside></header>
+    <section class="journey-controls" aria-label="時間線篩選" data-timeline-controls hidden><div class="journey-filter-top"><div><label for="timeline-year">年份</label><select id="timeline-year"><option value="all">全部年份</option>{timeline.groups.map(group=><option value={group.year}>{group.year}</option>)}{timeline.undated.length>0 && <option value="unknown">日期待查</option>}</select></div><button id="reset-timeline" type="button">清除篩選</button></div><div class="journey-filter-categories" role="group" aria-label="節點類別"><button type="button" data-filter-category="all" aria-pressed="true">全部 <span>{timeline.nodes.length}</span></button>{categories.map(category=><button type="button" data-filter-category={category.id} aria-pressed="false">{category.label} <span>{category.count}</span></button>)}</div><p role="status" id="timeline-results">顯示 {timeline.nodes.length} / {timeline.nodes.length} 筆時間節點</p></section>
+    <div class="journey-reading-notes"><p>依日期／期間起日由早到晚排列，同日的列序不代表先後。日期旁註明它是發行、演出、典禮或公開確認節點。</p><a href="#scope">收錄範圍與日期說明 ↗</a></div>
+    <section class="chronology" id="chronology" aria-label="按年份閱讀時間線"><p id="timeline-empty" class="journey-empty" hidden>這個年份與類別沒有已收錄節點，可清除篩選查看全部。</p>{timeline.groups.map(group=><section class="journey-year" id={`year-${group.year}`} data-year-group><header><h2 class="display">{group.year}</h2><span class="eyebrow">CHAPTER / {group.year}</span></header><div class="journey-year-content">{group.exact.length>0 && <ol class="journey-nodes" data-node-group>{group.exact.map(node=><TimelineEntry node={node} library={library} />)}</ol>}{group.partial.length>0 && <section class="journey-partial" data-node-group><h3>本年度日期尚未完整確認</h3><p>只保留已知年份／月份；與其他事件的確切先後待查。</p><ul class="journey-nodes">{group.partial.map(node=><TimelineEntry node={node} library={library} />)}</ul></section>}</div></section>)}{timeline.undated.length>0 && <section class="journey-year" id="undated" data-year-group><header><h2>日期待查</h2></header><ul class="journey-nodes">{timeline.undated.map(node=><TimelineEntry node={node} library={library} />)}</ul></section>}</section>
+    <aside class="journey-scope" id="scope"><span class="eyebrow section-label">READ THE DATES, KEEP THE CONTEXT</span><h2>每個時間點，都有它的意思。</h2><div><section><h3>分開看待事件與影音</h3><p>目前有 {timeline.counts.debut} 筆出道、{timeline.counts.release} 筆正式發行，以及選定的 {timeline.counts.performance} 筆演出、{timeline.counts['award-ceremony']} 筆頒獎典禮、{timeline.counts['music-show-win']} 筆音樂節目一位。另有 {timeline.mediaNodes.length} 筆影音／合作時間節點，不重算成正式發行或新增演出。</p></section><section><h3>保留期間、公布日與待查</h3><p>跨日系列按起日排列、保留結束日；同場典禮多個獎與舞台留在同頁。事前公布不等於典禮當天才首次得獎，音樂節目一位也不代表到場演出。</p><p>「截至已公開」不是影片首發日；合作公告不是音源發行日。未知細節在原頁逐項說明，資料截止不會隨網頁建置自動更新。</p></section></div><a class="text-link" href={withBase('sources/#scope')}>資料範圍與全部來源 ↗</a></aside>
+  </main>
+</BaseLayout>
+<script>
+  const controls = document.querySelector<HTMLElement>('[data-timeline-controls]');
+  const year = document.querySelector<HTMLSelectElement>('#timeline-year');
+  const rows = [...document.querySelectorAll<HTMLElement>('[data-timeline-node]')];
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter-category]')];
+  let category = 'all';
+  const update = () => {
+    const selectedYear = year?.value ?? 'all';
+    rows.forEach(row=>{ row.hidden = (category!=='all' && row.dataset.category!==category) || (selectedYear!=='all' && row.dataset.year!==selectedYear); });
+    document.querySelectorAll<HTMLElement>('[data-year-group], [data-node-group]').forEach(group=>{group.hidden=![...group.querySelectorAll<HTMLElement>('[data-timeline-node]')].some(row=>!row.hidden);});
+    buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.filterCategory===category)));
+    const visible = rows.filter(row=>!row.hidden).length;
+    const status = document.querySelector('#timeline-results');
+    if(status) status.textContent=`顯示 ${visible} / ${rows.length} 筆時間節點`;
+    const empty = document.querySelector<HTMLElement>('#timeline-empty');
+    if(empty) empty.hidden=visible!==0;
+  };
+  buttons.forEach(button=>button.addEventListener('click',()=>{category=button.dataset.filterCategory ?? 'all'; update();}));
+  year?.addEventListener('change',update);
+  document.querySelector('#reset-timeline')?.addEventListener('click',()=>{category='all'; if(year) year.value='all'; update();});
+  if(controls) controls.hidden=false;
+</script>

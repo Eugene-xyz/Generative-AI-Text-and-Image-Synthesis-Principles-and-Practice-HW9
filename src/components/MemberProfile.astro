@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MemberPortrait from './MemberPortrait.astro';
+import { home } from '../data/home';
+import { getLibrary, entryUrl, heading, memberInfo, withBase, type WikiEntry } from '../lib/wiki';
+import { memberProfile } from '../lib/members';
+import '../styles/members.css';
+interface Props { entry: WikiEntry; }
+const { entry } = Astro.props;
+const library = await getLibrary();
+const profile = memberProfile(entry, library);
+const members = home.members.map(id => { const item = library.requireEntry(id); return { entry: item, ...memberInfo(item) }; });
+const index = members.findIndex(member => member.entry.id === entry.id);
+const next = members[(index + 1) % members.length];
+const chapters = [ ['before', '組團前的她'], ['joining', '走向 QWER'], ['role', '團內角色'], ['career', '職涯時間線'], ['notes', '資料說明'], ['references', '本頁來源'] ];
+---
+<BaseLayout title={`${profile.name}（${profile.korean}）｜成員介紹`} description={`${profile.name} 的組團前身分：${profile.career}。認識她如何走向 QWER，以及${profile.role}的團內分工。`}>
+  <main id="main" class="member-page">
+    <div class="wrap">
+      <nav class="member-breadcrumb" aria-label="麵包屑"><a href={withBase()}>首頁</a><span aria-hidden="true">/</span><a href={withBase('members/')}>四位成員</a><span aria-hidden="true">/</span><span aria-current="page">{profile.name}</span></nav>
+      <header class="profile-hero">
+        <div class="profile-intro"><p class="eyebrow section-label">MEMBER 0{index + 1} / QWER STAGE NOTES</p><p class="profile-korean" lang="ko">{profile.korean}</p><h1 class="display">{profile.name}<span aria-hidden="true">.</span></h1><p class="profile-role">{profile.role}</p><div class="profile-origin"><span class="eyebrow">BEFORE QWER</span><p>{profile.career}</p></div><div class="profile-actions"><a href="#before" class="button primary">從她的起點讀起 <span aria-hidden="true">↓</span></a><a href="#career" class="text-link">職涯時間線 <span aria-hidden="true">↗</span></a></div><p class="profile-verified">資料核對 {entry.data.verified_at ?? '待查'} · <a href="#notes">部分時間細節待查</a></p></div>
+        <MemberPortrait memberId={entry.id} name={profile.name} eager />
+      </header>
+      <nav class="member-switch" aria-label="切換成員">{members.map((member, i) => <a href={entryUrl(member.entry)} aria-current={member.entry.id === entry.id ? 'page' : undefined}><span class="eyebrow">0{i + 1}</span><span class="display">{member.name}</span><span class="switch-role">{member.role}</span></a>)}</nav>
+      <div class="profile-story">
+        <aside class="profile-toc"><span class="eyebrow section-label">IN THIS STORY</span><nav aria-label="本頁章節">{chapters.map(([id, label], i) => <a href={`#${id}`}><span class="display">0{i + 1}</span>{label}</a>)}</nav><a href={withBase('members/')} class="text-link">← 四位成員總覽</a></aside>
+        <article class="profile-chapters">
+          <section class="profile-chapter" id="before" aria-labelledby="before-title"><span class="eyebrow section-label">01 / BEFORE THE BAND</span><h2 id="before-title">組團前的她</h2><div class="prose" set:html={profile.before}></div></section>
+          <section class="profile-chapter" id="joining" aria-labelledby="joining-title"><span class="eyebrow section-label">02 / THE TURNING POINT</span><h2 id="joining-title">如何走向 QWER</h2><div class="prose" set:html={profile.joining}></div></section>
+          <section class="profile-chapter role-chapter" id="role" aria-labelledby="role-title"><span class="eyebrow section-label">03 / ON THE STAGE</span><h2 id="role-title">樂團中的角色</h2><div class="prose" set:html={profile.roleHtml}></div></section>
+          <section class="profile-chapter" id="career" aria-labelledby="career-title"><span class="eyebrow section-label">04 / CAREER TIMELINE</span><h2 id="career-title">已能確認的職涯節點</h2><p class="chapter-lead">報導、公開亮相、加入與正式出道，是不同的時間節點。</p><ol class="career-timeline">{profile.timeline.map(event => <li><div class="career-date" set:html={event.when}></div><div class="career-event"><p class="prose career-what" set:html={event.what}></p><div class="career-meaning"><span>日期的意義</span><p class="prose" set:html={event.meaning}></p></div></div></li>)}</ol></section>
+          <section class="profile-chapter profile-notes" id="notes" aria-labelledby="notes-title"><span class="eyebrow section-label">05 / READING NOTES</span><h2 id="notes-title">資料說明與待查細節</h2>{profile.limits && <div class="prose" set:html={profile.limits}></div>}<div class="prose" set:html={profile.pending}></div><details class="name-notes"><summary>藝名與介紹範圍</summary><div class="prose" set:html={profile.opening}></div></details></section>
+          <section class="profile-chapter" id="references" aria-labelledby="references-title"><span class="eyebrow section-label">06 / SOURCES</span><h2 id="references-title">本頁來源</h2><p class="chapter-lead">內文連結對應各項敘述，以下列出這份人物介紹使用的資料。</p><ol class="member-sources">{profile.sources.map(source => <li><a href={source.data.url}>{source.data.title}<span aria-hidden="true"> ↗</span></a><p>{source.data.publisher} · 查閱 {source.data.accessed_at}</p><a class="source-scope" href={withBase(`sources/#${source.id}`)}>閱讀查核範圍</a></li>)}</ol><div class="member-related"><span>延伸閱讀</span>{entry.data.related.map(library.requireEntry).map(item => <a href={entryUrl(item)}>{heading(item)} ↗</a>)}</div></section>
+        </article>
+      </div>
+      <a class="next-member" href={entryUrl(next.entry)}><div><span class="eyebrow section-label">NEXT / 另一段起點</span><span class="display">{next.name}</span><p>{next.career}</p></div><span class="next-arrow" aria-hidden="true">→</span></a>
+    </div>
+  </main>
+</BaseLayout>

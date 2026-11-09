@@ -1,0 +1,10 @@
+---
+import MusicWork from '../../components/MusicWork.astro';
+import { getLibrary, slugOf, type WikiEntry } from '../../lib/wiki';
+export async function getStaticPaths() {
+  const library = await getLibrary();
+  return library.all.filter(entry=>entry.data.type==='official-media' && entry.data.category==='original-publication').map(entry=>({params:{slug:slugOf(entry).replace(/^other-songs\//,'')},props:{entry}}));
+}
+interface Props { entry: WikiEntry; }
+---
+<MusicWork entry={Astro.props.entry} />

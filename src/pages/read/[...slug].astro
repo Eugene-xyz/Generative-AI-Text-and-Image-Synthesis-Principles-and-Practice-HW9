@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MemberProfile from '../../components/MemberProfile.astro';
+import MusicWork from '../../components/MusicWork.astro';
+import EventPage from '../../components/EventPage.astro';
+import BandPage from '../../components/BandPage.astro';
+import RecommendationPage from '../../components/RecommendationPage.astro';
+import { getLibrary, slugOf, heading, withBase, entryUrl, type WikiEntry } from '../../lib/wiki';
+import { renderWiki } from '../../lib/markdown';
+
+export async function getStaticPaths() {
+  const library = await getLibrary();
+  return library.all.map(entry => ({ params: { slug: slugOf(entry) }, props: { entry } }));
+}
+interface Props { entry: WikiEntry; }
+const { entry } = Astro.props;
+const library = await getLibrary();
+const html = renderWiki(entry, library);
+const sources = entry.data.sources.map(id => library.bySource.get(id)!);
+const related = entry.data.related.map(library.requireEntry);
+---
+{entry.data.type === 'band' ? <BandPage /> : entry.data.type === 'recommendation' ? <RecommendationPage entry={entry} /> : entry.data.type === 'member' ? <MemberProfile entry={entry} /> : entry.data.type === 'event' ? <EventPage entry={entry} /> : ['release', 'official-media'].includes(entry.data.type) ? <MusicWork entry={entry} /> : <BaseLayout title={heading(entry)}>
+  <main id="main" class="wrap">
+    <header class="reading-head"><a class="text-link" href={withBase('library/')}>← 全部筆記</a><p class="eyebrow section-label">QWER STAGE NOTES / READING ROOM</p><h1>{heading(entry)}</h1><p class="reading-label">資料核對：{entry.data.verified_at ?? '待查'} · {entry.data.verification === 'checked' ? '本頁敘述已有來源' : '部分細節待查，見內文說明'}</p></header>
+    <div class="reader-shell">
+      <article class="prose" set:html={html}></article>
+      <aside class="reader-aside" aria-label="本頁來源與延伸閱讀">
+        <h2>本頁來源</h2><ul>{sources.map(source => <li><a href={source.data.url}>{source.data.title}</a><p class="muted">{source.data.publisher}</p></li>)}</ul>
+        {related.length > 0 && <><h2>延伸閱讀</h2><ul>{related.map(item => <li><a href={entryUrl(item)}>{item.data.title}</a></li>)}</ul></>}
+        <a class="text-link" href={withBase('sources/')}>來源範圍與素材標示 ↗</a>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>}

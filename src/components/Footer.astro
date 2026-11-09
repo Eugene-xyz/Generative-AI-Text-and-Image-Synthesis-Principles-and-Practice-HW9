@@ -1,0 +1,13 @@
+---
+import { withBase, isPreview } from '../lib/wiki';
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div><a href={withBase()} class="brand"><span class="brand-mark">QWER</span><span class="brand-text">STAGE<br />NOTES</span></a><p class="footer-tagline">從不同的起點，讀懂同一個舞台。</p></div>
+      <nav class="footer-links" aria-label="頁尾導覽"><a href={withBase('library/')}>閱讀全部筆記</a><a href={withBase('sources/')}>關於與資料來源</a><a href="#main">回到頂端 ↑</a></nav>
+    </div>
+    <div class="footer-bottom"><span>QWER Stage Notes · 非官方介紹網站</span><span>人物 · 音樂 · 舞台</span></div>
+    {isPreview && <p class="review-note">開發預覽 · 可包含尚未發布的草稿，不能直接當作公開版本。</p>}
+  </div>
+</footer>

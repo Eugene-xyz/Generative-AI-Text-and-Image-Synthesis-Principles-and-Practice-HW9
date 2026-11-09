@@ -1,0 +1,34 @@
+---
+import { musicEmbeds } from '../data/music-embeds';
+import RecordMark from './RecordMark.astro';
+import { withBase } from '../lib/wiki';
+interface Props { workId: string; title: string; physicalOnly?: boolean; }
+const { workId, title, physicalOnly = false } = Astro.props;
+const embed = musicEmbeds[workId];
+if (embed && !/^https:\/\/open\.spotify\.com\/embed\/album\/[A-Za-z0-9]+(?:\?.*)?$/.test(embed.url)) throw new Error(`${workId}: unapproved player host or path`);
+---
+<aside class="official-player" aria-label={`${title} 封面與官方平台`}>
+  <div class="player-placeholder"><RecordMark label="COVER / OFFICIAL PLAYER" /><div class="player-content"><span class="eyebrow section-label">{embed ? 'COVER & LISTEN' : physicalOnly ? 'SPECIAL VINYL' : 'OFFICIAL MUSIC'}</span>{embed ? <><h2>封面與曲目，一起看。</h2><p>點擊後會連線至 Spotify，顯示封面與播放器，並可能使用 Cookie。播放範圍依平台提供。</p><button type="button" class="button primary load-music-player" data-player-url={embed.url} data-player-title={`${title} — Spotify 官方播放器`}>載入 Spotify 封面與播放器 <span aria-hidden="true">↗</span></button></> : <><h2>{physicalOnly ? '一張獨立記錄的黑膠。' : '從作品與版本開始。'}</h2><p>{physicalOnly ? '目前沒有已核對的同版串流播放器；下方保留官方販售資料及原版參考。' : '尚未核對此作品的封面入口；曲目與官方連結見下方。'}</p></>}</div></div>
+  <div class="player-frame" aria-live="polite"></div>
+  {embed && <a class="player-direct" href={embed.source}>直接前往 Spotify ↗</a>}
+  <p class="player-credit">{embed ? <>封面由 Spotify 播放器呈現，本站不另存圖檔。<a href={withBase('sources/#music-player')}>外部播放器與隱私說明</a></> : '圓環為本站導覽圖形，並非專輯封面。'}</p>
+</aside>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.load-music-player').forEach(button => {
+    button.addEventListener('click', () => {
+      const root = button.closest('.official-player');
+      const holder = root?.querySelector('.player-frame');
+      const src = button.dataset.playerUrl;
+      if (!root || !holder || !src || holder.querySelector('iframe')) return;
+      const frame = document.createElement('iframe');
+      frame.src = src;
+      frame.title = button.dataset.playerTitle ?? 'Spotify 官方播放器';
+      frame.width = '100%'; frame.height = '352';
+      frame.allow = 'encrypted-media; fullscreen; picture-in-picture';
+      frame.setAttribute('allowfullscreen', '');
+      holder.append(frame);
+      root.setAttribute('data-loaded', 'true');
+      frame.addEventListener('load', () => frame.focus(), { once: true });
+    });
+  });
+</script>

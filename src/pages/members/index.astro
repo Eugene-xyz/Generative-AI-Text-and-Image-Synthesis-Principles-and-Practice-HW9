@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MemberPortrait from '../../components/MemberPortrait.astro';
+import { home } from '../../data/home';
+import { getLibrary, memberInfo, entryUrl, withBase } from '../../lib/wiki';
+import '../../styles/members.css';
+const library = await getLibrary();
+const members = home.members.map(id => { const entry = library.requireEntry(id); return { entry, ...memberInfo(entry) }; });
+---
+<BaseLayout title="四位成員" description="認識 CHODAN、MAGENTA、HINA、SIYEON：從各自組團前的經歷，讀懂 QWER 的四段起點。">
+  <main id="main" class="wrap members-overview">
+    <nav class="member-breadcrumb" aria-label="麵包屑"><a href={withBase()}>首頁</a><span aria-hidden="true">/</span><span aria-current="page">四位成員</span></nav>
+    <header class="members-heading"><div><p class="eyebrow section-label">FOUR MEMBERS. FOUR BEGINNINGS.</p><h1>四個名字，<br />四段起點<span>。</span></h1></div><p>從組團前的經歷，<br />認識她們如何走到一起。<br /><span>人物職涯、加入過程與資料來源。</span></p></header>
+    <div class="member-directory">{members.map((member, index) => <article class="directory-member"><div class="directory-top"><span class="eyebrow">MEMBER 0{index + 1}</span><span lang="ko">{member.korean}</span></div><MemberPortrait memberId={member.entry.id} name={member.name} eager={index < 2} /><div class="directory-content"><h2 class="display"><a href={entryUrl(member.entry)}>{member.name}</a></h2><p class="directory-role">{member.role}</p><div class="directory-origin"><span class="eyebrow">BEFORE QWER</span><p>{member.career}</p></div><a class="text-link" href={entryUrl(member.entry)} aria-label={`閱讀 ${member.name} 的完整職涯介紹`}>閱讀她的故事 <span aria-hidden="true">↗</span></a></div></article>)}</div>
+    <aside class="members-afterword"><div><span class="eyebrow section-label">CONTINUE THE STORY</span><h2>再回到四人共同的舞台。</h2><p>認識成員之後，從樂團故事與三首歌曲繼續讀下去。</p></div><div><a class="button" href={entryUrl(library.requireEntry(home.band))}>樂團故事 <span aria-hidden="true">↗</span></a><a class="text-link" href={withBase('#listen')}>先聽 Dear、T.B.H、Dreamer <span aria-hidden="true">↗</span></a></div></aside>
+  </main>
+</BaseLayout>

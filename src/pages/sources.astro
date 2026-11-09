@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLibrary, withBase } from '../lib/wiki';
+import { site } from '../data/site';
+import { memberPhotos } from '../data/member-photos';
+import { memberInfo } from '../lib/wiki';
+const library = await getLibrary();
+const sources = library.sources.sort((a, b) => a.id.localeCompare(b.id));
+const cutoff = sources.map(source => source.data.accessed_at).sort().at(-1);
+---
+<BaseLayout title="關於與來源">
+  <main id="main" class="wrap">
+    <header class="reading-head"><p class="eyebrow section-label">ABOUT / SOURCES & CREDITS</p><h1>每一段故事，都有出處。</h1><p class="muted">QWER Stage Notes 是繁體中文非官方介紹網站，與 QWER、所屬單位及圖片作者沒有官方合作或背書關係。</p></header>
+    <div class="reader-shell"><article class="prose">
+      <section id="scope"><h2>資料範圍與查核</h2><p>目前資料核對截至 {cutoff}。介紹涵蓋四位成員的公開職涯、正式發行、官方合作影音、其他官方公開歌曲，以及選定的重要活動。</p><p>日期區分正式發行、影片公開、活動發生及資料查閱；同曲不同語言、混音、伴奏、再次收錄與實體限定版本分開說明。作品數不代表唯一歌曲數，事件數也不是全生涯演出或獎項總數。</p><p>組團邀請的精確節點、部分實體曲序與再次收錄的錄音關係仍待查。對應文章保留已確認的內容與限制，不補上推測。正版音樂入口已核對對應資訊，但未實際試播。</p></section>
+      <section id="method"><h2>這份筆記如何整理</h2><p>先保存來源與支持範圍，再以繁體中文整理成 Wiki。網站共用同一份內容資料，人物、作品與活動都有可追溯的來源。歌曲推薦採網站導聆口吻，與事實背景分開，並非冒充個人聆聽心得。</p><p>首頁呈現選定的閱讀方向；更多內容可從<a href={withBase('library/')}>全部筆記</a>繼續閱讀。</p></section>
+      <section id="image-credit"><h2>首頁照片</h2><p><a href={site.photo.source}>QWER Southkorean band.png</a>，作者 {site.photo.author}，取自 <a href={site.photo.original}>QWER Showcase 影片</a>，由 Wikimedia Commons 提供，依 <a href={site.photo.licenseUrl}>{site.photo.license}</a> 使用。</p><p>使用者選定 2024 年 Showcase 的四人正面合照。本站使用原始 1272 × 667 圖檔，等比例顯示，沒有裁切、暗化或修改照片。Commons 頁面記有 2024-05-15 的授權審核紀錄。</p></section>
+      <section id="member-image-credit"><h2>成員個人照片</h2><p>四位成員使用同場 2024 Showcase 的個人影片截圖，作者 K-POPIT 케이팝잇；圖檔由 Wikimedia Commons 提供，依 <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a> 使用。原始影片為 <a href={site.photo.original}>QWER Showcase</a>。本站保留下載圖檔，不再裁切、調色或放大修圖；以原比例顯示，總覽的空白邊緣由版面補齊。</p><ul>{Object.entries(memberPhotos).map(([id, photo]) => photo && <li><a href={photo.source}>{memberInfo(library.requireEntry(id)).name} — 原始素材頁</a>（{photo.width} × {photo.height}）</li>)}</ul><p>Commons 的 Chodan、Hina、Siyeon 檔案頁記有 2024-05-15 授權審核，Magenta 頁為 2024-12-16。素材採用不代表作者、樂團或所屬單位為本站背書。</p></section>
+      <section><h2>字型與視覺</h2><p>中文使用 Noto Sans TC、英文展示字使用 Barlow Condensed，皆依 SIL Open Font License 使用。莓紅與冰藍是本站的設計配色，不宣稱為樂團或成員的官方代表色。作品列表的圓環圖形是導覽裝飾，並非專輯封面。</p><p><a href={withBase('licenses/noto-sans-tc.txt')}>Noto Sans TC 授權</a> · <a href={withBase('licenses/barlow-condensed.txt')}>Barlow Condensed 授權</a></p></section>
+      <section id="music-player"><h2>音樂封面、外部播放器與隱私</h2><p>數位作品使用 Spotify 原生播放器顯示封面與曲目。點擊「載入 Spotify 封面與播放器」後才連線至 Spotify，可能使用 Cookie 及第三方 Cookie；也可選擇直接前往 Spotify。播放長度、登入與地區限制由平台決定，本站未逐一試播完整音訊。</p><p>本站沒有額外加入分析或廣告追蹤；曲目搜尋只在目前頁面篩選。外部播放器與連結的資料處理由對應平台負責，請參閱 <a href="https://www.spotify.com/legal/privacy-policy/">Spotify 隱私政策</a>與<a href="https://www.spotify.com/legal/cookies-policy/">Cookie 政策</a>。</p><p>封面保留在完整播放器內，不下載、截圖另用或遮擋控制項，依 <a href="https://developer.spotify.com/documentation/embeds/terms">Spotify Widget 條款</a>及<a href="https://developer.spotify.com/documentation/embeds/tutorials/creating-an-embed">官方嵌入文件</a>使用。12 個數位作品入口已核對；《Beyond the Discord》尚無已核對的同版播放器，因此保留文字、導覽圖形與官方黑膠公告。既有資料來源中的 Apple Music 頁面作為查核參考保留，本站不使用 Apple Music 播放器。</p></section>
+      <section id="references"><h2>內容來源清單</h2><p>這裡列出已保存的來源定位；各文章會列出對應引用。來源的可讀範圍與限制保留如下。</p><ol class="source-list">{sources.map(source => <li id={source.id}><a href={source.data.url}>{source.data.title}</a><p>{source.data.publisher} · 查閱 {source.data.accessed_at}</p><p>{source.data.scope}</p></li>)}</ol></section>
+    </article><aside class="reader-aside"><h2>本頁目錄</h2><ul><li><a href="#scope">資料範圍與查核</a></li><li><a href="#method">整理方式</a></li><li><a href="#image-credit">照片與授權</a></li><li><a href="#music-player">音樂播放器與隱私</a></li><li><a href="#references">內容來源</a></li></ul></aside></div>
+  </main>
+</BaseLayout>

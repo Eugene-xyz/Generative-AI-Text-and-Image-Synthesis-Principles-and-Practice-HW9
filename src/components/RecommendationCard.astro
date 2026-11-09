@@ -1,0 +1,13 @@
+---
+import type { RecommendationView } from '../lib/recommendations';
+interface Props { pick:RecommendationView; featured?:boolean; number?:number; }
+const {pick,featured=false,number}=Astro.props;
+---
+<article class:list={['guide-card',{ 'guide-card-featured':featured }]} data-recommendation-card={featured ? 'featured' : 'category'}>
+  <div class="guide-card-top"><span class="eyebrow">{featured ? `START / 0${number}` : `TRACK / 0${pick.order}`}</span><span>{pick.categoryLabel}</span></div>
+  <h3 class="display"><a href={pick.href}>{pick.name}<span aria-hidden="true"> ↗</span></a></h3>
+  {pick.original && <p class="guide-original" lang="ko">{pick.original}</p>}
+  <p class="guide-audience">{pick.audience}</p>
+  {!featured && <><div class="prose guide-reason" set:html={pick.reason}></div><p class="guide-version"><span>推薦版本</span>{pick.version}</p></>}
+  <div class="guide-card-actions"><a class="text-link" href={pick.href}>導聆、版本與來源 ↗</a><a href={pick.listenUrl} aria-label={`${pick.listenLabel}：${pick.name}，${pick.locator}`}>▷ {pick.listenLabel} ↗</a></div>
+</article>

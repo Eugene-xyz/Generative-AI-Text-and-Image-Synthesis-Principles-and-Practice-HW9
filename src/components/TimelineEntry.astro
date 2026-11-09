@@ -1,0 +1,11 @@
+---
+import { timelineCategories, type TimelineNode } from '../lib/timeline';
+import { entryUrl, heading, withBase, type Library } from '../lib/wiki';
+interface Props { node: TimelineNode; library: Library; }
+const { node, library } = Astro.props;
+const sources = node.entry.data.sources.map(id=>library.bySource.get(id)!);
+---
+<li class="journey-node" id={node.anchor} data-timeline-node data-category={node.category} data-year={node.start.slice(0,4) || 'unknown'}>
+  <div class="journey-node-date"><time datetime={node.start || undefined}>{node.start || '日期待查'}</time>{node.end && <><span>至</span><time datetime={node.end}>{node.end}</time></>}{node.precision!=='day' && <span class="date-precision">{node.precision==='month' ? '僅確認月份' : node.precision==='year' ? '僅確認年份' : '確切日期未確認'}</span>}</div>
+  <article class="journey-node-body"><div class="journey-labels"><span class="journey-category" data-kind={node.category}><span aria-hidden="true">{timelineCategories[node.category].code}</span>{timelineCategories[node.category].label}</span>{node.context && <span>{node.context}</span>}</div><h3><a href={node.href}>{node.title}<span aria-hidden="true"> ↗</span></a></h3><p class="journey-basis">{node.basis}</p><div class="prose journey-summary" set:html={node.summary}></div><div class="journey-node-actions"><a class="text-link" href={node.href}>{node.category==='official-media' ? '閱讀版本與公開脈絡' : '閱讀事件與日期辨識'} ↗</a>{node.work && <a class="text-link" href={entryUrl(node.work)} aria-label={`閱讀 ${heading(node.work)} 的曲目與版本`}>作品曲目與版本 ↗</a>}</div><details class="journey-sources"><summary>本節點來源（{sources.length}）</summary><ul>{sources.map(source=><li><a href={source.data.url}>{source.data.title} ↗</a><span>{source.data.publisher} · 查閱 {source.data.accessed_at}</span><a class="source-scope" href={withBase(`sources/#${source.id}`)}>查核範圍</a></li>)}</ul></details></article>
+</li>
