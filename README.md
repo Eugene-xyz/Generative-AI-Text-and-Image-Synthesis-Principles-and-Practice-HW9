@@ -2,9 +2,11 @@
 
 繁體中文非官方 QWER 樂團與音樂介紹網站。本專案以 **AGENTS.md → 來源紀錄 → Markdown Wiki → Astro 共用版型** 的流程建立可持續擴充的網站。
 
-資料盤點截止 **2026-11-09**；程式與交付整理於 2026-11-10 完成。**目前正準備部署至使用者指定的 [GitHub Repository](https://github.com/Eugene-xyz/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9)，公開網址尚待部署後驗證。**
+資料盤點截止 **2026-11-09**；程式與交付整理於 2026-11-10 完成。已上傳至 [GitHub Repository](https://github.com/Eugene-xyz/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9)，並於 2026-11-10 完成 GitHub Pages 公開瀏覽驗證。
 
 ## 直接看網站
+
+**[開啟 QWER Stage Notes 公開網站](https://eugene-xyz.github.io/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9/)**，不需登入 GitHub。
 
 雙擊根目錄 **[index.html](index.html)**，或用 Chrome／Edge 開啟；不需要安裝 Node。請保留完整資料夾，圖片、字型、內頁都使用本地檔案。Spotify 與外部來源需要網路；播放器由讀者點擊才載入，播放條件由平台決定。
 
@@ -20,11 +22,11 @@
 
 ## 上傳與作業繳交
 
-依 **[GitHub Pages 發布步驟](docs/github-pages.md)** 上傳完整資料夾內容，Pages 選 **Deploy from a branch → main → /(root)**。根目錄已提供 index.html 和 .nojekyll；不要選 docs，也不要只上傳單一 HTML 或 ZIP。
+完整專案已上傳，Pages 已設定為 **Deploy from a branch → main → /(root)**。根目錄提供 index.html 和 .nojekyll；未來更新方式見 **[GitHub Pages 發布步驟](docs/github-pages.md)**。
 
 專案檔案較多，建議用 GitHub Desktop 整批提交。GitHub 網頁每批上傳數量有限；完整操作與官方文件連結見發布步驟。
 
-公開成功後再填 **[繳交模板](SUBMISSION.md)**：個人標題、專案簡介、Repository／網頁真實連結、AGENTS.md 與擴充說明。個資由使用者自行填到課堂繳交內容。**[創作過程](docs/project-process.md)** 保留多輪決策與 AI 分工；請用自己的話說明你理解的規則。
+**[繳交模板](SUBMISSION.md)** 已填入 Repository、公開網站與 AGENTS.md 真實連結，並附專案簡介與擴充說明；請自行補上課堂繳交標題及實際學習心得。個資只填到課堂繳交內容。**[創作過程](docs/project-process.md)** 保留多輪決策與 AI 分工；請用自己的話說明你理解的規則。
 
 ## 哪些檔案要修改
 

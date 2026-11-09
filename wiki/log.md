@@ -206,3 +206,11 @@
 - 使用者改為授權 AI 上傳既有 HW9 Repository 並以 main／根目錄啟用 Pages。瀏覽器確認目標為 Eugene-xyz，公開且目前只有初始 README；保留既有歷史。
 - 本機 529 個檔案與已驗證交付版逐檔一致。準備同步 AGENTS 授權敘述、Repository 連結及發布文件；未改動任何 Wiki 實體事實、查核日期或生成網頁。
 - 本項為部署準備紀錄；上傳、Pages 與公開瀏覽結果在完成後另追加，不預先宣稱成功。
+
+## 2026-11-10｜GitHub 上傳與 Pages 公開驗證完成
+
+- 依使用者授權將完整 529 個專案檔直接提交至 Eugene-xyz 的 HW9 Repository，保留原有歷史且未強制推送。完整發布 commit 為 ab3940a66b4ec00a7e3eaf9d0b97a65c7725051b；遠端 Git tree 與本機檔案的 Git blob 雜湊逐檔一致。目前專案樹不含臨時 ZIP、上傳標記或新增的寫入型工作流程。
+- Pages 已設為 Deploy from a branch → main → /(root)，GitHub 自動部署成功，Settings 顯示 Your site is live at。正式網址為 https://eugene-xyz.github.io/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9/ 。
+- 以不含 Cookie／Token 的獨立 HTTP 請求取得 200 與正確網站標題；Chrome 實際瀏覽首頁、成員、作品、曲目、推薦與時間線，合照與人物照正常，人物內頁重新整理成功。公開曲目搜尋 Discord 為 13 筆；2024 與音樂節目一位交集為 Show Champion 一筆，清除回到 37 筆；推薦三首順序正確，觀察期間無 console error／warning。
+- 真正的 Repository 子路徑通過 140 HTML、5,743 個內部連結／資源及錨點檢查。同步 README、AGENTS、Wiki 管理索引、發布指引、驗證與創作紀錄，以及 SUBMISSION 的實際連結；個人標題及心得繼續留給使用者填寫，沒有代交課堂作業。
+- 本輪未修改 66 個 Wiki 實體、61 份來源及生成網頁；QWER 資料截止日仍為 2026-11-09，既有 partial 與限制保留。過往日誌只追加、不改寫。首次完整部署紀錄見 docs/final-validation.md。

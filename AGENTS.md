@@ -78,7 +78,7 @@
 
 ## 6. 發布準備與內容狀態
 
-`ready` 表示本頁可在明示的資料範圍內交付；`verification` 記事實核對狀態，二者分開。使用者已逐步確認內容與例外，並於 2026-11-10 要求完整交付。本輪把已審閱內容納入發布準備；**未宣稱已上線，也不將既有 partial 改成 checked**。
+`ready` 表示本頁可在明示的資料範圍內交付；`verification` 記事實核對狀態，二者分開。使用者已逐步確認內容與例外，並於 2026-11-10 要求完整交付。網站已於同日上傳並完成 Pages 公開瀏覽驗證，詳見 [驗證紀錄](docs/final-validation.md)；**上線不表示資料全無缺漏，既有 partial 不改成 checked**。
 
 - 公開建置需全部頁面與依賴為 ready、無 conflict，且與 `docs/publication-review.json` 的逐頁檔案雜湊相符。
 - partial 頁必須在正文保留具體限制，並在發布審閱紀錄列出待查項。這延續使用者同意的「已確認內容先收錄」方式。
@@ -115,8 +115,8 @@
 
 - 本版採 GitHub Pages「Deploy from a branch → main → /(root)」，不需要學生先設定 Actions 或安裝 Node。需修改網站時才使用 Astro 開發流程。
 - 保留 `.nojekyll`、全部內頁、圖片與字型；只傳 index.html 不足以運作。相對路徑可適應不同 Repository 名稱。
-- 本次已獲使用者授權上傳至上述既有 Repository 及啟用 Pages；完成部署後須實際確認公開網址與主要功能。沒有部署結果不能宣稱已上線，後續更新沿用相同流程。
-- `SUBMISSION.md` 包含專案簡介、GitHub／網頁待填位置、AGENTS 與擴充方式；個資由使用者在課堂繳交內容填寫。
+- 本次已依使用者授權上傳至上述既有 Repository，Pages 與公開瀏覽驗證完成；[正式網站](https://eugene-xyz.github.io/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9/) 不需登入。後續更新仍須確認部署結果與受影響功能，不能只憑上傳成功就宣稱新版已上線。
+- `SUBMISSION.md` 包含專案簡介、GitHub／網頁實際連結、AGENTS 與擴充方式；個資及實際心得由使用者在課堂繳交內容填寫。
 - [創作紀錄](docs/project-process.md) 保留實際的多輪設計決策與 AI 分工；不聲稱全由手寫、不捏造個人心得，不保證老師給分或不判抄襲。學生應能說明規則並示範新增內容。
 
 方法參考：[LLM Wiki 構想](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)。本專案使用簡化 Markdown Wiki，不含聊天機器人、向量資料庫或自動追蹤新消息。

@@ -1,14 +1,14 @@
 # 上傳 GitHub 與公開網站
 
-這份專案已包含正式建置的根目錄 `index.html`、內頁、圖片、字型與原始碼；你可以直接上傳，無須先安裝 Node。**使用者已指定 [既有 Repository](https://github.com/Eugene-xyz/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9) 並授權 AI 上傳及啟用 Pages；最新部署狀態以 README 與驗證紀錄為準。** 下列步驟保留作為未來自行更新或重建網站的指引。
+完整專案已上傳至 [HW9 Repository](https://github.com/Eugene-xyz/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9)，根目錄含 `index.html`、內頁、圖片、字型與原始碼。2026-11-10 已確認 Pages 使用 **Deploy from a branch → main → /(root)**，並實際瀏覽 [正式網站](https://eugene-xyz.github.io/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9/)。詳細結果見 [驗證紀錄](final-validation.md)。下列步驟供日後更新，不必重新建立 Repository 或重新啟用 Pages。
 
 ## 建議方式：GitHub Desktop
 
 專案包含多個內頁與字型檔，建議使用 [GitHub Desktop](https://desktop.github.com/) 整批提交。GitHub 網頁一次最多上傳 100 個檔案；請勿把整個 ZIP 當作網站上傳。參考 [GitHub 檔案上傳說明](https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository)。
 
-1. 在 GitHub 建立新的 **Public** Repository，名稱可用 `qwer-stage-notes`。本專案已有 README，建立時不用再新增 README、.gitignore 或 License。
-2. 在 GitHub Desktop 選 **File → Clone repository → URL**，貼上剛建立的 Repository 網址，選一個新的空資料夾作為本機位置。參考 [官方複製步驟](https://docs.github.com/en/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop)。
-3. 將「生成式HW9」**裡面的全部內容**複製到剛複製下來的資料夾。不要再包一層「生成式HW9」；開啟 Repository 第一層就應看到 `index.html` 與 `AGENTS.md`。
+1. 開啟上述既有 HW9 Repository。若本機已有它的 GitHub Desktop 副本，先 Fetch／Pull 最新版本，再進行修改；不需重新複製。
+2. 若尚無本機副本，在 GitHub Desktop 選 **File → Clone repository → URL**，貼上上述 HW9 Repository 網址，選新的空資料夾作為本機位置。參考 [官方複製步驟](https://docs.github.com/en/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop)。
+3. 優先在這份副本中修改 Wiki／src 並重新建置。若從「生成式HW9」帶入更新，只複製其**裡面的專案內容**，先核對變更，不覆蓋較新的編輯。不要再包一層「生成式HW9」；Repository 第一層應看到 `index.html` 與 `AGENTS.md`。
 4. 確認 `.nojekyll`、`.site-files.json`、`_astro/`、`images/`、`licenses/` 都有複製；不要刪掉檔案總管中名稱以點開頭的檔案。
 5. 回 GitHub Desktop，檢查變更清單，Summary 可寫 `Complete QWER Stage Notes website`。按 **Commit to main**，再按 **Push origin**；介面若顯示 **Publish branch**，先發布該分支。
 6. 回 GitHub Repository，確認根目錄有 `index.html`、`AGENTS.md`、`README.md`、`src/`、`wiki/`、`raw/` 及網頁資料夾。
@@ -16,6 +16,8 @@
 如果使用網頁上傳，必須分批、每批不超過 100 檔，維持資料夾層級並確認隱藏檔也已加入。使用 GitHub Desktop 較不容易漏檔。
 
 ## 啟用 GitHub Pages
+
+本專案已完成以下設定；日後可用這些步驟檢查，無須每次重新設定。
 
 1. 開啟 Repository 的 **Settings → Pages**。
 2. 在 **Build and deployment → Source** 選 **Deploy from a branch**。
@@ -35,6 +37,6 @@
 
 ## 之後修改網站
 
-修改 Wiki 或 src 後，在專案根目錄執行 README 的檢查、發布審閱與 `pnpm build:site`。把更新後的原始碼、Wiki、`.site-files.json`、根目錄 HTML 與資源一起提交；不要只改 GitHub 上的 HTML。此版本不需要另建 GitHub Actions 建置工作流程。
+修改 Wiki 或 src 後，在專案根目錄執行 README 的檢查、發布審閱與 `pnpm build:site`。把更新後的原始碼、Wiki、`.site-files.json`、根目錄 HTML 與資源一起提交至 main；不要只改 GitHub 上的 HTML。GitHub 會自動執行 Pages 部署，完成後確認公開版本。此版本不需要另建可寫入 Repository 的 GitHub Actions 工作流程。
 
 個人學號、姓名等請填在你送交課堂的文字，不要另外提交到公開 Repository。老師的實際收件欄位與規定優先。

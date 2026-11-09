@@ -1,6 +1,6 @@
 # QWER Wiki 索引
 
-本知識庫以繁體中文整理，保留韓文／官方英文原名。資料盤點截止 2026-11-09。首頁、樂團、四位成員、音樂、時間線與 12 首歌曲推薦均有正式頁；本輪準備可上傳 GitHub 的根目錄 index.html。已審閱頁面為 ready，原有 partial 及待查說明保留；使用者將自行上傳，尚未驗證公開網址。
+本知識庫以繁體中文整理，保留韓文／官方英文原名。資料盤點截止 2026-11-09。首頁、樂團、四位成員、音樂、時間線與 12 首歌曲推薦均有正式頁；完整專案已上傳 [GitHub](https://github.com/Eugene-xyz/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9)，並於 2026-11-10 驗證 [公開網站](https://eugene-xyz.github.io/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9/)。已審閱頁面為 ready，原有 partial 及待查說明保留。
 
 網站開發與預覽方式見 [README](../README.md)；設計規格、資料載入約定與素材分別見 [網站規格](../docs/site-spec.md)、[AGENTS.md](../AGENTS.md)、[素材紀錄](../docs/assets.md)。
 
@@ -163,6 +163,6 @@
 1. 使用者檢視已擴充的作品與分類；格式已確認，不需重做首張樣本。
 2. 依待查表補 LP、CD、語言、錄音及官方影片入口的證據；已確認事實先保留，不倒填未知日期。
 3. 14 筆已選重要活動已納入；檢視事件頁並依待查表補證事前頒獎細節，後續新增沿用事件模板。
-4. 12 首／四分類推薦與首頁已確認；本輪提供成員正式內頁供檢視。後續依使用者步驟完成其他類型內頁、公開內容審閱與 GitHub Pages 部署。
+4. 各類正式內頁、12 首／四分類推薦及 GitHub Pages 部署均已完成。之後新增內容沿用對應模板、來源查核與發布審閱，再以共用版型建置；詳見 README 的新增專輯範例。
 
 [開發規則](../AGENTS.md) · [待查與待討論](questions.md) · [更新日誌](log.md) · [作品模板](../docs/templates/release.md) · [官方影音模板](../docs/templates/official-media.md) · [事件模板](../docs/templates/event.md) · [推薦模板](../docs/templates/recommendation.md)

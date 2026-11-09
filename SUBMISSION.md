@@ -1,6 +1,6 @@
 # 作業繳交模板
 
-請先自行上傳 GitHub、啟用 Pages，確認外部可瀏覽後，將本模板改成自己的繳交文字。空格及連結不是完成結果，不要原樣繳交。個人資料只填在課堂繳交內容，不要提交到公開 Repository。
+GitHub 專案與 Pages 已於 2026-11-10 公開，以下已填入實際連結。請補上自己的標題資料與學習心得，確認理解後改成自己的繳交文字；不要將留白欄位原樣繳交。個人資料只填在課堂繳交內容，不要提交到公開 Repository。
 
 **繳交標題**：＿＿學校 ＿＿學號 ＿＿系級 ＿＿姓名 QWER Stage Notes
 
@@ -12,15 +12,15 @@ QWER Stage Notes 是以韓國樂團 QWER 為主題的繁體中文非官方介紹
 
 ## 2. GitHub Repository 連結
 
-https://github.com/Eugene-xyz/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9
+[GitHub Repository](https://github.com/Eugene-xyz/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9)
 
 ## 3. 網頁連結
 
-【填入 Settings → Pages 顯示部署成功後的實際公開網址】
+[QWER Stage Notes 公開網站](https://eugene-xyz.github.io/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9/)
 
 ## 4. AGENTS.md
 
-【填入 Repository 根目錄 AGENTS.md 的實際連結；若老師要求全文，另貼上檔案內容】
+[專案根目錄 AGENTS.md](https://github.com/Eugene-xyz/Generative-AI-Text-and-Image-Synthesis-Principles-and-Practice-HW9/blob/main/AGENTS.md)；若老師要求全文，另貼上檔案內容。
 
 檔案已包含專案目的、網頁風格、頁面結構、內容格式、命名位置、查核規則、AI 工作流程與建置方式。
 
